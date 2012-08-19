@@ -825,11 +825,7 @@
     <Content Include="Views\Client\Details.cshtml" />
     <Content Include="Views\Client\Edit.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
-    <Content Include="Views\Default1\Create.cshtml" />
-    <Content Include="Views\Default1\Delete.cshtml" />
-    <Content Include="Views\Default1\Details.cshtml" />
     <Content Include="Views\Default1\DisplayTemplates\ListeArticle.cshtml" />
-    <Content Include="Views\Default1\Edit.cshtml" />
     <Content Include="Views\Default1\EditorTemplates\ListeArticle.cshtml" />
     <Content Include="Views\Default1\Index.cshtml" />
     <Content Include="Views\Famille_article\Create.cshtml" />

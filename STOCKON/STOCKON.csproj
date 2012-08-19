@@ -117,8 +117,9 @@
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Web.Mvc">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Telerik\Extensions for ASP.NET MVC Q2 2011\Binaries\Mvc3\Telerik.Web.Mvc.dll</HintPath>
+    <Reference Include="Telerik.Web.Mvc, Version=2011.2.712.340, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Include\Telerik.Web.Mvc.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

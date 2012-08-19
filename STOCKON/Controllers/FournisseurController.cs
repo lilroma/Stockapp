@@ -62,7 +62,7 @@ namespace STOCKON.Controllers
             if (ModelState.IsValid)
             {
                 var fr = from f in db.Fournisseur
-                         where f.Code_fournisseur == f.Code_fournisseur
+                         where f.Code_fournisseur == fournisseur.Code_fournisseur
                          select f;
                 if (fr.ToList().Count > 0)
                 {

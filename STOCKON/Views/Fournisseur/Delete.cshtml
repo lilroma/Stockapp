@@ -1,0 +1,44 @@
+﻿@model STOCKON.Models.Fournisseur
+
+@{
+    ViewBag.Title = "Suppression";
+}
+
+<h2>Supprimer un fournisseur</h2>
+
+<h3>Êtes-vous sur de vouloir supprimer cet enregistrement ?</h3>
+@Html.ValidationSummary("L'erreur suivante est survenue :")
+<fieldset>
+    <legend>Fournisseur</legend>
+
+    <div class="display-label">Nom</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nom_fournisseur)
+    </div>
+
+    <div class="display-label">Prénom</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Prenom_fournisseur)
+    </div>
+
+    <div class="display-label">Adresse</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Adresse_fournisseur)
+    </div>
+
+    <div class="display-label">Numéro de téléphone</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone_fournisseur)
+    </div>
+
+    <div class="display-label">Adresse mail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mail__fournisseur)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Supprimer" /> |
+        @Html.ActionLink("Retour à la liste des fournisseurs", "Index")
+    </p>
+}

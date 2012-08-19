@@ -1,0 +1,60 @@
+﻿@model STOCKON.Models.Utilisateur
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Utilisateur</legend>
+
+    <div class="display-label">Login</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Login)
+    </div>
+
+    <div class="display-label">Pasword</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Pasword)
+    </div>
+
+    <div class="display-label">ConfirmPassword</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ConfirmPassword)
+    </div>
+
+    <div class="display-label">Client</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Client)
+    </div>
+
+    <div class="display-label">Fournissaeur</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fournissaeur)
+    </div>
+
+    <div class="display-label">Facture</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Facture)
+    </div>
+
+    <div class="display-label">Article</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Article)
+    </div>
+
+    <div class="display-label">Mouvement_stock</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mouvement_stock)
+    </div>
+
+    <div class="display-label">Etats</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Etats)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

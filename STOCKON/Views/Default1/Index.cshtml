@@ -1,0 +1,90 @@
+﻿@model IEnumerable<STOCKON.Models.Liste_produit>
+
+@{
+    STOCKON.Models.Mouvement_stock Mv = new STOCKON.Models.Mouvement_stock();
+    
+    Mv = (STOCKON.Models.Mouvement_stock)ViewData["op"];
+    var nf = "MV000" + Mv.ID_mouvement;
+        
+        }
+
+<h2>Mouvement de stock No : @Mv.Code_mouvement</h2>
+<script type="text/javascript">
+    function onEdit(e) {
+        $(".t-grid-cancel-changes").click(function () {
+            alert("cancel");
+        });
+    }
+</script>
+<p>
+    
+</p>
+<fieldset>
+    
+    <legend>Mouvement</legend>
+      <table>
+      <tr>
+      <td>Date de l'opération : </td><td>@Mv.Date_mouvement.Date.ToShortDateString()</td>
+      <td>Type de l'opération : </td><td>@Mv.Type_mouvement</td>
+      </tr>
+      <tr>
+      <td>Libellé de l'opération : </td><td>@Mv.Libelle_mouvement</td>
+      <td></td>
+      </tr>
+      </table>
+    
+    </fieldset>
+    <fieldset>
+        <legend>Liste des produits</legend>
+  @Html.ValidationSummary("")
+
+@(Html.Telerik().Grid(Model)
+                 .Name("Grid")
+                 .DataKeys(dataKeys => dataKeys.Add(o => o.Id_article))
+                 .ToolBar(commands => commands.Insert())
+                 .DataBinding(dataBinding => dataBinding
+                    .Server()
+                     //Home.Index renders the grid initially
+                .Select("Index", "Default1", new { idm = Mv.ID_mouvement })
+                     //Home.Insert inserts a new data record
+                .Insert("Insert", "Default1", new { idm = Mv.ID_mouvement })
+                     //Home.Update updates an existing data record
+                    .Update("Update", "Default1", new { idm = Mv.ID_mouvement })
+                     //Home.Delete deletes an existing data record
+                    .Delete("DeleteP", "Default1", new { idm = Mv.ID_mouvement })
+                    
+        )
+
+                 .Columns(columns =>
+                    {
+                        columns.Bound(o => o.Article).Width(250).Aggregate(a => a.Count()).FooterTemplate(@<text>Total : </text>); ;
+                        columns.Bound(o => o.Quantite).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                        if (Model.Count() != 0)
+                        {
+                            columns.Bound(o => o.Prix).Width(150).Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                            columns.Bound(o => o.Prix_Total).Width(150).Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                        }
+                        else
+                        {
+                            columns.Bound(o => o.Prix).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                            columns.Bound(o => o.Prix_Total).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                        }
+
+
+                        columns.Command(commands =>
+                        {
+                            commands.Edit();
+                            commands.Delete();
+
+                        });
+
+                    }
+
+                                                                                                                                                                         ).ClientEvents(events => events.OnEdit("onEdit"))
+
+                                                                                                                                                                     )
+                    </fieldset>
+
+                    <div>
+     @Html.ActionLink("Retour à la liste", "Index", "Mouvement_stock") | @Html.ActionLink("Imprimer", "MouvementS", "Report", new { id = Mv.ID_mouvement }, new { target = "_blank" })
+</div>

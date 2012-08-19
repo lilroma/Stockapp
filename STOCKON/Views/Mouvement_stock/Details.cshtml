@@ -1,0 +1,35 @@
+﻿@model STOCKON.Models.Mouvement_stock
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Mouvement_stock</legend>
+
+    <div class="display-label">ID_mouvement</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_mouvement)
+    </div>
+
+    <div class="display-label">Date_mouvement</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Date_mouvement)
+    </div>
+
+    <div class="display-label">Type_mouvement</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type_mouvement)
+    </div>
+
+    <div class="display-label">Libelle_mouvement</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Libelle_mouvement)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

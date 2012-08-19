@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+@(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.office2010blue.css").Combined(true).Compress(true)))</head>
+
+<body>
+    <div class="page">
+
+        <div id="header">
+            <div id="title">
+                <h1>STOCKON</h1>
+            </div>
+            <div id="logindisplay">
+                @Html.Partial("_LogOnPartial")
+                
+            </div>
+            @(Html.Telerik().Menu()
+                    .Name("menu")
+                    .Items(menu => {
+                        if(Session["uid"] != null)
+                        {
+                       
+                        menu.Add().Text("Utilisateurs").Action("Index", "Utilisateur").Enabled(true);
+                        if (Session["article"].ToString().ToLower() == true.ToString().ToLower())
+                        {
+                            menu.Add().Text("Articles").Items(m => {
+                            m.Add().Text("Famille d'articles").Action("Index", "Famille_article");
+                            m.Add().Text("Articles").Action("Index", "Article");
+                        });
+                        }
+                        else
+                        {
+                            menu.Add().Text("Articles").Items(m => {
+                            m.Add().Text("Famille d'articles").Action("Index", "Famille_article").Enabled(false);
+                            m.Add().Text("Articles").Action("Index", "Article").Enabled(false);
+                            });
+                        }
+                        menu.Add().Text("Tiers").Items(m =>
+                        {
+                            if (bool.Parse(Session["client"].ToString()) == true)
+                            {
+                                m.Add().Text("Clients").Action("Index", "Client");
+                            }
+                            else
+                            {
+                                m.Add().Text("Clients").Action("Index", "Client").Enabled(false);
+                            }
+                            if (bool.Parse(Session["fournisseur"].ToString()) == true)
+                            {
+                                m.Add().Text("Fournisseurs").Action("Index", "Fournisseur");
+                            }
+                            else
+                            {
+                                m.Add().Text("Fournisseurs").Action("Index", "Fournisseur").Enabled(false);
+                            }
+                        });
+                        if (bool.Parse(Session["mouvement_stock"].ToString()) == true)
+                        {
+                            menu.Add().Text("Gestion du stock").Action("Index", "Mouvement_stock");
+                        }
+                        else
+                        {
+                            menu.Add().Text("Gestion du stock").Action("Index", "Mouvement_stock").Enabled(false);
+                        }
+                        if (bool.Parse(Session["facture"].ToString()) == true)
+                        {
+                            menu.Add().Text("Facturation").Items(m =>
+                            {
+                                m.Add().Text("Achats").Action("Index", "FactureA");
+                                m.Add().Text("Ventes").Action("Index", "FactureV");
+                                m.Add().Text("Règlements").Action("listclient", "Reglement");
+                            });
+                        }
+                        else
+                        {
+                            menu.Add().Text("Facturation").Items(m =>
+                            {
+                                m.Add().Text("Achats").Action("Index", "FactureA").Enabled(false);
+                                m.Add().Text("Ventes").Action("Index", "FactureV").Enabled(false);
+                                m.Add().Text("Règlements").Action("listclient", "Reglement").Enabled(false);
+                            });
+                        
+                        }
+                        if (bool.Parse(Session["etats"].ToString()) == true)
+                        {
+                            menu.Add().Text("Etats").Items(m =>
+                            {
+                                m.Add().Text("Rapports").Items(n =>
+                                    {
+                                        n.Add().Text("Liste des clients").Action("EtatClient", "Report").LinkHtmlAttributes(new { target = "_blank" });
+                                        n.Add().Text("liste des fournisseurs").Action("EtatFournisseur", "Report").LinkHtmlAttributes(new { target = "_blank" });
+                                        n.Add().Text("Etat du stock").Action("EtatduStock", "Report").LinkHtmlAttributes(new { target = "_blank" });
+                                        n.Add().Text("Ventes sur une période").Action("EtatP", "Report", new { id = "fv" }).LinkHtmlAttributes(new { target = "_blank" });
+                                        n.Add().Text("Achats sur une période").Action("EtatP", "Report", new { id = "fa" }).LinkHtmlAttributes(new { target = "_blank" });
+                                        n.Add().Text("Sortie sur une période").Action("EtatP", "Report", new { id = "ms" }).LinkHtmlAttributes(new { target = "_blank" });
+                                        n.Add().Text("Entrée sur une période").Action("EtatP", "Report", new { id = "me" }).LinkHtmlAttributes(new { target = "_blank" });
+                                    }).Enabled(true);
+                                m.Add().Text("Statistiques").Items(n =>
+                                    {
+                                        n.Add().Text("Ventes").Action("StatVente", "Statistiques");
+                                        n.Add().Text("Achats").Action("StatAchat", "Statistiques");
+                                    }).Enabled(true);
+                            });
+                        }
+                        else
+                        {
+                            menu.Add().Text("Etats").Items(m =>
+                            {
+                                m.Add().Text("Rapports").Action("Index", "FactureA").Enabled(false);
+                                m.Add().Text("Statistiques").Action("Index", "FactureV").Enabled(false);
+                            });
+                        }
+                        menu.Add().Text("A propos").Action("Edit", "Preference", new { id = 1 });    
+                        menu.Add().Text("Accueil").Action("Index", "Home");
+                        }
+                        
+                        else
+                        {
+                          
+                        
+                        
+                        menu.Add().Text("Utilisateurs").Action("Index", "Utilisateur").Enabled(false);
+                        
+                        menu.Add().Text("Articles").Items(m => {
+                            m.Add().Text("Famille d'articles").Action("Index", "Famille_article").Enabled(false);
+                            m.Add().Text("Articles").Action("Index", "Article").Enabled(false);
+                        });
+                        menu.Add().Text("Tiers").Items(m =>
+                        {
+                            m.Add().Text("Clients").Action("Index", "Client").Enabled(false);
+                            m.Add().Text("Fournisseurs").Action("Index", "Fournisseur").Enabled(false);
+                        });
+                        menu.Add().Text("Gestion du stock").Action("Index", "Mouvement_stock").Enabled(false);
+                        menu.Add().Text("Facturation").Items(m =>
+                        {
+                            m.Add().Text("Achats").Action("Index", "FactureA").Enabled(false);
+                            m.Add().Text("Ventes").Action("Index", "FactureV").Enabled(false);
+                            m.Add().Text("Règlements").Action("listclient", "Reglement").Enabled(false);
+                        });
+                        menu.Add().Text("Etats").Items(m =>
+                        {
+                            m.Add().Text("Rapports").Action("Index", "FactureA");
+                            m.Add().Text("Statistiques").Action("Index", "FactureV");
+                        }
+                        ).Enabled(false);
+                        menu.Add().Text("A propos").Action("Edit", "Preference", new { id = 1 });
+                        menu.Add().Text("Accueil").Action("Index", "Home");
+                        
+                    }
+                        
+                    }))
+        </div>
+
+
+        <div id="main">
+            @RenderBody()
+            <div id="footer">
+            </div>
+        </div>
+    </div>
+@(Html.Telerik().ScriptRegistrar().DefaultGroup(group => group.Combined(true).Compress(true)))</body>
+</html>

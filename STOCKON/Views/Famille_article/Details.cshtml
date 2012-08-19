@@ -1,0 +1,25 @@
+﻿@model STOCKON.Models.Famille_article
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Famille articles</legend>
+
+    <div class="display-label">Libellé</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Libelle_famille)
+    </div>
+
+    <div class="display-label">Conditionnement</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Conditionnement)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Modifier", "Edit", new { id=Model.Id_famille }) |
+    @Html.ActionLink("Retour à la liste des familles d'articles", "Index")
+</p>

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<STOCKON.Models.Preference>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Nom
+        </th>
+        <th>
+            Activite
+        </th>
+        <th>
+            Adresse
+        </th>
+        <th>
+            Num_telephone
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Taux_tva
+        </th>
+        <th>
+            Duree_echeance
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adresse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Num_telephone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Taux_tva)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duree_echeance)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.Nom }) |
+            @Html.ActionLink("Details", "Details", new {  id=item.Nom }) |
+            @Html.ActionLink("Delete", "Delete", new {  id=item.Nom })
+        </td>
+    </tr>
+}
+
+</table>
+@(Html.Telerik().Grid(Model)
+                 .Name("Grid")
+                 .DataKeys(dataKeys => dataKeys.Add(o => o.Nom))
+                 .ToolBar(commands => commands.Insert())
+                 .DataBinding(dataBinding => dataBinding
+                    .Ajax()
+                     //Home.Index renders the grid initially
+                .Select("IndexAjax", "Preference", new { id =  Request["id"] })
+                     //Home.Insert inserts a new data record
+                .Insert("Insert", "Preference", new { id = Request["id"] })
+                     //Home.Update updates an existing data record
+                .Update("Update", "Home")
+                     //Home.Delete deletes an existing data record
+                .Delete("Delete", "Home")
+        )
+
+                 .Columns(columns =>
+                    {
+                        columns.Bound(o => o.Nom).Width(100);
+                        columns.Bound(o => o.Activite).Width(200);
+                        columns.Bound(o => o.Adresse);
+                        columns.Bound(o => o.Duree_echeance);
+                        columns.Bound(o => o.Num_telephone);
+                        columns.Bound(o => o.Taux_tva);
+                        columns.Bound(o => o.Type);
+
+                        columns.Command(commands =>
+                           {
+                               commands.Edit();
+                               commands.Delete();
+                           });
+
+                    }
+                    
+                    )
+
+                    )

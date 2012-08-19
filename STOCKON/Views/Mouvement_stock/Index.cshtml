@@ -1,0 +1,38 @@
+﻿@model IEnumerable<STOCKON.Models.Mouvement_stock>
+
+
+@{
+    ViewBag.Title = "Gestion des mouvements de stocks";
+}
+
+<h2>Gestion des mouvements de stocks</h2>
+
+<p>
+    @Html.ActionLink("Nouvelle opération", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Rechercher une opération (Date) : @Html.Telerik().DatePicker().Name("SearchString") &nbsp;
+        <input type="submit" value="Rechercher" /></p>
+}
+
+ @{
+        var grid = new WebGrid(Model,rowsPerPage : 20);
+        @grid.GetHtml(tableStyle:"grid",
+        headerStyle:"head",
+        alternatingRowStyle: "altrow",
+                columns: grid.Columns(
+                             grid.Column("Code_mouvement", "Référence"),
+                                      grid.Column("Date_mouvement", "Date", format: @<text>@item.Date_mouvement.ToString("dd/MM/yyyy")</text>),
+                                                           grid.Column("Type_mouvement", "Type"),
+                                                           grid.Column("Libelle_mouvement", "Libellé"),
+                                                                                               grid.Column("", "", format: (item) => Html.ActionLink("Editer", "AddProduit", new { id = item.ID_mouvement })),
+                                                                                                                                                       grid.Column("", "", format: (item) => Html.ActionLink("Supprimer", "Delete", new { id = item.ID_mouvement }))
+
+                                                  )
+
+                                      );
+        }
+

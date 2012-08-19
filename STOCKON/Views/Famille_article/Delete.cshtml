@@ -1,0 +1,29 @@
+﻿@model STOCKON.Models.Famille_article
+
+@{
+    ViewBag.Title = "Supression";
+}
+
+<h2>Suppression</h2>
+
+<h3>Êtes vous de vouloir supprimer cet enregistrement?</h3>
+@Html.ValidationSummary("L'erreur suivante est survenue :")
+<fieldset>
+    <legend>Famille articles</legend>
+
+    <div class="display-label">Libellé</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Libelle_famille)
+    </div>
+
+    <div class="display-label">Conditionnement</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Conditionnement)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Supprimer" /> |
+        @Html.ActionLink("Retour à la liste des familles d'articles", "Index")
+    </p>
+}

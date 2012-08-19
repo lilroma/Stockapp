@@ -1,0 +1,39 @@
+﻿@model STOCKON.Models.Mouvement_stock
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Êtes-vous sur de vouloir supprimer cet enregistrement ?</h3>
+@Html.ValidationSummary("L'erreur suivante est survenue :")
+<fieldset>
+    <legend>Mouvement de stock</legend>
+
+    <div class="display-label">Référence</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_mouvement)
+    </div>
+
+    <div class="display-label">Date</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Date_mouvement)
+    </div>
+
+    <div class="display-label">Type</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type_mouvement)
+    </div>
+
+    <div class="display-label">Libellé</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Libelle_mouvement)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Supprimer" /> |
+        @Html.ActionLink("Retour à la liste", "Index")
+    </p>
+}

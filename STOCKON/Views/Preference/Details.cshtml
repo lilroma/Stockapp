@@ -1,0 +1,50 @@
+﻿@model STOCKON.Models.Preference
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Preference</legend>
+
+    <div class="display-label">Nom</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nom)
+    </div>
+
+    <div class="display-label">Activite</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Activite)
+    </div>
+
+    <div class="display-label">Adresse</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Adresse)
+    </div>
+
+    <div class="display-label">Num_telephone</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Num_telephone)
+    </div>
+
+    <div class="display-label">Type</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </div>
+
+    <div class="display-label">Taux_tva</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Taux_tva)
+    </div>
+
+    <div class="display-label">Duree_echeance</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Duree_echeance)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

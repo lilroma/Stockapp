@@ -1,0 +1,108 @@
+﻿@model IEnumerable<STOCKON.Models.ProduitL>
+
+@{
+    ViewBag.Title = "AddProduit";
+
+   @* GridEditMode mode = (GridEditMode)ViewData["mode"];
+    GridButtonType type = (GridButtonType)ViewData["type"];
+
+    using (Html.Configurator("Edit mode")
+
+              .PostTo("EditingAjax", "Grid")
+              .Begin())
+    { 
+    <ul>
+        <li>@Html.RadioButton("mode", "InLine", mode == GridEditMode.InLine, new { id = "inLine" }) <label
+            for="inLine">In-line</label></li>
+        <li>@Html.RadioButton("mode", "InForm", mode == GridEditMode.InForm, new { id = "inForm" }) <label
+            for="inForm">In-form</label></li>
+        <li>@Html.RadioButton("mode", "PopUp", mode == GridEditMode.PopUp, new { id = "popUp" }) <label
+            for="popUp">Pop-up</label></li>
+    </ul>
+    <br />
+    <h3 class="configurator-legend">
+        Button type
+    </h3>
+    <ul>
+        <li>@Html.RadioButton("type", "Text", type == GridButtonType.Text, new { id = "text" })<label
+            for="text">Text</label></li>
+        <li>@Html.RadioButton("type", "Image", type == GridButtonType.Image, new { id = "image" })<label
+            for="image">Image</label></li>
+        <li>@Html.RadioButton("type", "ImageAndText", type == GridButtonType.ImageAndText, new
+       {
+           id =
+               "imageAndText"
+       })<label for="imageAndText">Image and text</label></li>
+    </ul>
+    <button type="submit" class="t-button t-state-default">Apply</button>
+ 
+    } *@
+}
+
+<h2>AddProduit</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+    @{
+    STOCKON.Models.Mouvement_stock Mv = new STOCKON.Models.Mouvement_stock();
+    Mv = (STOCKON.Models.Mouvement_stock)ViewData["op"];
+        
+        }
+    <legend>Mouvement</legend>
+      <table>
+      <tr>
+      <td>@Mv.Date_mouvement</td>
+      <td>@Mv.Type_mouvement</td>
+      </tr>
+      <tr>
+      <td>@Mv.Libelle_mouvement</td>
+      <td></td>
+      </tr>
+      </table>
+    
+    </fieldset>
+    <fieldset>
+        <legend>Liste_produit</legend>
+         @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .ToolBar(commands =>
+        {
+            commands.Insert().ButtonType(GridButtonType.Text);
+        })
+        .DataKeys(keys => keys.Add(l => l.Id_article)) 
+        @*.BindTo((IEnumerable<STOCKON.Models.ProduitL>)ViewData["Liste_Produit"])*@
+.DataBinding(dataBinding => dataBinding
+           .Ajax()
+            .Insert("_Create", "Mouvement_stock", new { id = Mv.ID_mouvement })
+           .Update("Edition", "AddProduit", new { id = Mv.ID_mouvement })
+            .Delete("Delete", "AddProduit", new { id = Mv.ID_mouvement }))
+        .Columns(columns =>
+        {
+            columns.Bound(l => l.Article).Width(120);
+            columns.Bound(l => l.Conditionnement).Width(120);
+            columns.Bound(l => l.Quantite).Width(120);
+            columns.Bound(l => l.Prix).Width(120);
+            columns.Command(commands =>
+            {
+                commands.Edit();
+                commands.Delete();
+
+
+            }).Width(200);
+        }
+
+
+      ).Editable(editing => editing.Mode(GridEditMode.InLine))
+       )
+
+
+       
+    </fieldset>
+}
+
+

@@ -1,0 +1,6 @@
+﻿    @model STOCKON.Models.Arti
+           @using System.Collections
+
+@(Html.DropDownList(null, new SelectList((IEnumerable)ViewData["articles"], "Id_article", "Libelle_article"))
+        
+)

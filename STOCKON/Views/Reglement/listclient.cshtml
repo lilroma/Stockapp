@@ -1,0 +1,33 @@
+﻿@model IEnumerable<STOCKON.Models.Client>
+
+@{
+    ViewBag.Title = "Gestion des clients";
+}
+
+<h2>Gestion des clients</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Rechercher un client (Nom ou prénom) : @Html.TextBox("SearchString") &nbsp;
+        <input type="submit" value="Rechercher" /></p>
+}
+ @{
+        var grid = new WebGrid(Model,rowsPerPage : 20);
+        @grid.GetHtml(tableStyle:"grid",
+        headerStyle:"head",
+        alternatingRowStyle: "altrow",
+                columns: grid.Columns(
+                    grid.Column("Nom_client","Nom"),
+                    grid.Column("Prenom_client", "Prénom"),
+                    grid.Column("Categorie_client", "Catégorie"),
+                              grid.Column("Telephone_client", "Téléphone"),
+                                        grid.Column("Adresse_client", "Adresse"),
+                    grid.Column("Email","Adresse mail", format:@<i>@item.Mail_client</i>),
+                             grid.Column("", "", format: (item) => Html.ActionLink("Saisir un règlement", "ListeFacture", new { id = item.Id_client }))
+                                                                                                       
+                    )
+        
+        );
+        }
+

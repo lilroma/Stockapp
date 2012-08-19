@@ -1,0 +1,32 @@
+﻿@model STOCKON.Models.Reglement
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Reglement</legend>
+
+    <div class="display-label">Id_facture</div>
+    <div class="display-field">@Model.Id_facture</div>
+
+    <div class="display-label">Id_client</div>
+    <div class="display-field">@Model.Id_client</div>
+
+    <div class="display-label">Date_regelement</div>
+    <div class="display-field">@String.Format("{0:g}", Model.Date_regelement)</div>
+
+    <div class="display-label">Montant_regelement</div>
+    <div class="display-field">@Model.Montant_regelement</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Retour à la liste", "Index")
+    </p>
+}
+
+

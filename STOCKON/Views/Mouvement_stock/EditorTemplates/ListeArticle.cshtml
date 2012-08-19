@@ -1,0 +1,14 @@
+﻿    @model STOCKON.Models.Arti
+           @using System.Collections
+
+  @if ( Request.QueryString["Grid-mode"] == "edit")
+           { 
+           
+           @Model.Libelle_article;
+           }
+           else
+           {
+
+            @(Html.Telerik().AutoComplete().Name("article").BindTo((IEnumerable<String>)ViewData["art"]))
+           }
+

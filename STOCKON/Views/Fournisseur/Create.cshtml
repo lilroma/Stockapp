@@ -1,0 +1,72 @@
+﻿@model STOCKON.Models.Fournisseur
+
+@{
+    ViewBag.Title = "Enregistrement fournisseur";
+}
+
+<h2>Nouveau fournisseur</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Fournisseur</legend>
+         <div class="editor-label">
+            @Html.LabelFor(model => model.Code_fournisseur)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Code_fournisseur)
+            @Html.ValidationMessageFor(model => model.Code_fournisseur)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nom_fournisseur)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Nom_fournisseur)
+            @Html.ValidationMessageFor(model => model.Nom_fournisseur)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Prenom_fournisseur)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Prenom_fournisseur)
+            @Html.ValidationMessageFor(model => model.Prenom_fournisseur)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Adresse_fournisseur)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Adresse_fournisseur)
+            @Html.ValidationMessageFor(model => model.Adresse_fournisseur)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Telephone_fournisseur)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Telephone_fournisseur)
+            @Html.ValidationMessageFor(model => model.Telephone_fournisseur)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Mail__fournisseur)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Mail__fournisseur)
+            @Html.ValidationMessageFor(model => model.Mail__fournisseur)
+        </div>
+
+        <p>
+            <input type="submit" value="Enregistrer" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Retour à la liste des fournisseurs", "Index")
+</div>

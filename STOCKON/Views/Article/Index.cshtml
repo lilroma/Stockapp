@@ -1,0 +1,40 @@
+﻿@model IEnumerable<STOCKON.Models.Article>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Nouvel article", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Rechercher un article (Libellé article ou Libellé famille) : @Html.TextBox("SearchString") &nbsp;
+        <input type="submit" value="Rechercher" /></p>
+}
+ @{
+        var grid = new WebGrid(Model,rowsPerPage : 20);
+        @grid.GetHtml(tableStyle:"grid",
+        headerStyle:"head",
+        alternatingRowStyle: "altrow",
+                columns: grid.Columns(
+                         grid.Column("Code_article", "Code"),
+                    grid.Column("Libelle_article","Libellé"),
+                             grid.Column("Famille_article.Libelle_famille", "Famille article"),
+                    grid.Column("Qte_article", "Quantité en stock"),
+                                                grid.Column("Stock_critique", "Stock critique"),
+                                                grid.Column("Prix_grossiste", "Prix grossiste", format :@<text>@item.Prix_grossiste.ToString("###,###")</text> ),
+                                                                                                                    grid.Column("Prix_detaillant", "Prix détaillant", format: @<text>@item.Prix_detaillant.ToString("###,###")</text>),
+                                                                                                                                                                  grid.Column("", "", format: (item) => Html.ActionLink("Tracer", "Lvente", new { id = item.Id_article })),
+                                                                                                                                                                 grid.Column("", "", format: (item) => Html.ActionLink("Editer", "Edit", new { id = item.Id_article })),
+                                                                                                                                                                              grid.Column("", "", format: (item) => Html.ActionLink("Details", "Details", new { id = item.Id_article })),
+                                                                                                                                                                                                                                             grid.Column("", "", format: (item) => Html.ActionLink("Supprimer", "Delete", new { id = item.Id_article }))
+
+                                                                                        )
+
+                                                                            );
+        }
+

@@ -1,0 +1,196 @@
+﻿@using STOCKON.Models
+@model ModelFacture
+
+@{
+    ConvertisseurChiffresLettres Conv = new ConvertisseurChiffresLettres();
+    }
+<br />
+
+<table cellpadding="3" cellspacing="3">
+    <tr >
+      <td width="50%" align="left">
+          <b>@Model.Nom_E</b>
+      </td>
+      <td width="50%" align="right">
+        <b>Date : </b>@Model.Date_Facture
+      </td>
+    </tr>
+    <tr >
+      <td width="50%" align="left">
+          @Model.Adresse_E
+      </td>
+      <td width="50%" align="right">
+        <b>Facture No : </b>@Model.Num_Facture
+      </td>
+    </tr>
+    <tr >
+      <td width="50%" align="left">
+          @Model.Numtel_E
+      </td>
+      <td width="50%" align="right">
+      </td>
+    </tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr><td></td><td></td></tr>
+    <tr >
+      <td width="50%" align="left">
+          <u>Client</u>
+      </td>
+      <td width="50%" align="Left">
+        <b>@Model.Type_Op</b>
+      </td>
+    </tr> 
+    <tr >
+      <td width="50%" align="left">
+        &nbsp;&nbsp;@Model.Nom_client
+      </td>
+      <td width="50%">
+      </td>
+    </tr> 
+    <tr >
+      <td width="50%" align="left">
+        &nbsp;&nbsp;@Model.Adresse_client
+      </td>
+      <td width="50%">
+      </td>
+    </tr> 
+    <tr >
+      <td width="50%" align="left">
+        &nbsp;&nbsp;@Model.Telephone_client
+      </td>
+      <td width="50%">
+      </td>
+    </tr> 
+ </table>
+
+<br />
+@{ int sum = 0;
+   int MTva = 0;
+   int MRemise = 0;
+   int MTotal = 0;
+   
+   }
+<table cellpadding="3" cellspacing="3">
+    <tr border="1" bgcolor="#777777" color="#ffffff">
+        <td width="20%" align="center">
+            Quantité
+        </td>
+        <td width="40%" align="center">
+            Description
+        </td>
+        <td width="20%" align="center">
+            Prix unitaire
+        </td>
+         <td width="20%" align="center">
+            Prix total
+        </td>
+    </tr>
+    @{
+        var OddColor = "#DDEEEE";
+        var evenColor = "#EEFFFF";
+        var Odd = OddColor;
+    }
+    @foreach (Liste_produit_vente produit in Model.Liste_produit_vente)
+    {
+        sum = sum + Convert.ToInt32(produit.Prix_Total);
+        <tr border="1" bgcolor="@Odd">
+            <td>@produit.Quantite
+            </td>
+            <td>@produit.Article.Libelle_article
+            </td>
+            <td align="right">@produit.Prix.Value.ToString("###,###")
+            </td>
+            <td align="right">@produit.Prix_Total.Value.ToString("###,###")
+            </td>
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+
+    }
+    <tr >
+        <td width="20%">
+        </td>
+        <td width="40%">
+        </td>
+        <td width="20%" bgcolor="#777777" color="#ffffff">
+            <b>Total</b>
+        </td>
+         <td width="20%" align="right" bgcolor="#777777" color="#ffffff">
+           <b>@sum.ToString("###,###")</b>
+        </td>
+    </tr>
+    @if (Model.TVA == true)
+    {
+        MTva = (int)(sum * Model.TauxTva) / 100;
+    <tr >
+        <td width="20%">
+        </td>
+        <td width="40%">
+        </td>
+        <td width="20%" bgcolor="#777777" color="#ffffff">
+            <b>TVA</b>
+        </td>
+         <td width="20%" align="right" bgcolor="#777777" color="#ffffff">
+           <b>@MTva.ToString("###,###")</b>
+        </td>
+    </tr>
+    }
+    @if (Model.TRemise.Trim() == "Pourcentage".Trim())
+    {
+        if (Model.Remise > 100)
+        { MRemise = (int)Model.Remise; }
+        else
+        { MRemise = (int)(sum * Model.Remise) / 100; } 
+    
+    }
+    else
+    { MRemise = (int)Model.Remise; }
+    <tr >
+        <td width="20%">
+        </td>
+        <td width="40%">
+        </td>
+        <td width="20%" bgcolor="#777777" color="#ffffff">
+            <b>Remise</b>
+        </td>
+         <td width="20%" align="right" bgcolor="#777777" color="#ffffff">
+         @if (MRemise == 0)
+         {  <b>0</b>}
+         else
+         { <b>@MRemise.ToString("###,###")</b>}
+        </td>
+    </tr>
+    <tr >
+        <td width="20%">
+        </td>
+        <td width="40%">
+        </td>
+        <td width="20%" bgcolor="#777777" color="#ffffff">
+            <b>Net à payer</b>
+            @{
+                MTotal = sum + MTva - MRemise;
+                
+                }
+        </td>
+         <td width="20%" align="right" bgcolor="#777777" color="#ffffff">
+           <b>@MTotal.ToString("###,###")</b>
+        </td>
+    </tr>
+</table>
+<br/>
+<br />
+<table><tr><td align="left">Arreter la présente facture à la somme de : <i><b> @Conv.converti(MTotal) </b></i></td></tr></table>
+<br />
+<table><tr><td align="right"><b><u>La Direction</u></b></td></tr></table>

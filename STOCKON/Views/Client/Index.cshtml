@@ -1,0 +1,40 @@
+﻿@model IEnumerable<STOCKON.Models.Client>
+
+@{
+    ViewBag.Title = "Gestion des clients";
+}
+
+<h2>Gestion des clients</h2>
+
+<p>
+    @Html.ActionLink("Nouveau client", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Rechercher un client (Nom ou prénom) : @Html.TextBox("SearchString") &nbsp;
+        <input type="submit" value="Rechercher" /></p>
+}
+ @{
+        var grid = new WebGrid(Model,rowsPerPage : 20);
+        @grid.GetHtml(tableStyle:"grid",
+        headerStyle:"head",
+        alternatingRowStyle: "altrow",
+                columns: grid.Columns(
+                         grid.Column("Id_client", "Référence"),
+                    grid.Column("Nom_client","Nom"),
+                    grid.Column("Prenom_client", "Prénom"),
+                    grid.Column("Categorie_client", "Catégorie"),
+                              grid.Column("Telephone_client", "Téléphone"),
+                                        grid.Column("Adresse_client", "Adresse"),
+                    grid.Column("Email","Adresse mail", format:@<i>@item.Mail_client</i>),
+                              grid.Column("", "", format: (item) => Html.ActionLink("Tracer", "Lvente", new { id = item.Id_client })),
+                             grid.Column("", "", format: (item) => Html.ActionLink("Editer", "Edit", new { id = item.Id_client })),
+                                                                                                         grid.Column("", "", format: (item) => Html.ActionLink("Details", "Details", new { id = item.Id_client })),
+                                                                                                                                                                         grid.Column("", "", format: (item) => Html.ActionLink("Supprimer", "Delete", new { id = item.Id_client }))
+                                                                                                       
+                    )
+        
+        );
+        }
+

@@ -1,0 +1,140 @@
+﻿@model STOCKON.Models.Preference
+
+@{
+    ViewBag.Title = "Préférences";
+    
+     List<SelectListItem> Categorie = new List<SelectListItem>();
+    Categorie.Add(new SelectListItem
+    {
+        Text = "Libellé article",
+        Value = "Libellé article"
+    });
+    if (Model.CRecherche == "Code article")
+    {
+    Categorie.Add(new SelectListItem
+    {
+        Text = "Code article",
+        Value = "Code article",
+        Selected = true
+    });
+    }
+    else{
+        Categorie.Add(new SelectListItem
+        {
+            Text = "Code article",
+            Value = "Code article",
+        });
+    }
+
+    List<SelectListItem> Remise = new List<SelectListItem>();
+    Remise.Add(new SelectListItem
+    {
+        Text = "Pourcentage",
+        Value = "Pourcentage"
+    });
+    if (Model.Remise == "Montant")
+    {
+        Remise.Add(new SelectListItem
+        {
+            Text = "Montant",
+            Value = "Montant",
+            Selected = true
+        });
+    }
+    else
+    {
+        Remise.Add(new SelectListItem
+        {
+            Text = "Montant",
+            Value = "Montant",
+        });
+    }
+    
+}
+<h2>Informations sur l'activité</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Préférences</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nom)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Nom)
+            @Html.ValidationMessageFor(model => model.Nom)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Activite)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Activite)
+            @Html.ValidationMessageFor(model => model.Activite)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Adresse)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Adresse)
+            @Html.ValidationMessageFor(model => model.Adresse)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Num_telephone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Num_telephone)
+            @Html.ValidationMessageFor(model => model.Num_telephone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Type)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Type)
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Taux_tva)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Taux_tva)
+            @Html.ValidationMessageFor(model => model.Taux_tva)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Duree_echeance)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Duree_echeance)
+            @Html.ValidationMessageFor(model => model.Duree_echeance)
+        </div>
+         <div class="editor-label">
+            @Html.LabelFor(model => model.CRecherche)
+        </div>
+        <div class="editor-field">
+            @*Html.EditorFor(model => model.Categorie_client)*@
+            @Html.DropDownList("Categorie", Categorie)
+            @Html.ValidationMessageFor(model => model.CRecherche)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Remise)
+        </div>
+        <div class="editor-field">
+            @*Html.EditorFor(model => model.Categorie_client)*@
+            @Html.DropDownList("Remise", Remise)
+            @Html.ValidationMessageFor(model => model.Remise)
+        </div>
+        <p>
+            <input type="submit" value="Enregistrer" />
+        </p>
+    </fieldset>
+}
+

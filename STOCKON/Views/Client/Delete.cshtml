@@ -1,0 +1,54 @@
+﻿@model STOCKON.Models.Client
+
+@{
+    ViewBag.Title = "Suprression d'un client";
+}
+
+<h2>Suprression d'un client</h2>
+
+<h3>Êtes-vous sur de vouloir supprimer cet enregistrement ?</h3>
+@Html.ValidationSummary("L'erreur suivante est survenue :")
+<fieldset>
+    <legend>Client</legend>
+
+    <div class="display-label">Identifiant</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Id_client)
+    </div>
+
+    <div class="display-label">Nom</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nom_client)
+    </div>
+
+    <div class="display-label">Prénom</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Prenom_client)
+    </div>
+
+    <div class="display-label">Catégorie</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Categorie_client)
+    </div>
+
+    <div class="display-label">Adresse</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Adresse_client)
+    </div>
+
+    <div class="display-label">Numéro de téléphone</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone_client)
+    </div>
+
+    <div class="display-label">Adresse mail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mail_client)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Supprimer" /> |
+        @Html.ActionLink("Retour à la liste des clients", "Index")
+    </p>
+}

@@ -1,0 +1,36 @@
+﻿@model STOCKON.Models.Facture_vente
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Êtes-vous sur de vouloir supprimer cet enregistrement ?</h3>
+@Html.ValidationSummary("L'erreur suivante est survenue :")
+<fieldset>
+    <legend>Facture_vente</legend>
+
+    <div class="display-label">Référence</div>
+    <div class="display-field">@Model.Id_facture</div>
+
+    <div class="display-label">Client</div>
+    <div class="display-field">@Model.Client.Nom_client</div>
+
+    <div class="display-label">Date</div>
+    <div class="display-field">@String.Format("{0:g}", Model.Date_facture)</div>
+
+    <div class="display-label">Mode de règlement</div>
+    <div class="display-field">@Model.Mode_reglement</div>
+
+    <div class="display-label">Type</div>
+    <div class="display-field">@Model.Type_facture</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Supprimer" /> |
+        @Html.ActionLink("Retour à la liste", "Index")
+    </p>
+}
+
+

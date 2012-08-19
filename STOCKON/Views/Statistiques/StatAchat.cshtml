@@ -1,0 +1,97 @@
+﻿@model STOCKON.Models.DateModel
+
+@{
+    ViewBag.Title = "Stat des achats";
+
+    List<SelectListItem> Mitems = new List<SelectListItem>();
+    Mitems.Add(new SelectListItem
+    {
+        Text = "Diagramme en baton",
+        Value = "Diagramme en baton"
+    });
+    Mitems.Add(new SelectListItem
+    {
+        Text = "Diagramme en secteur",
+        Value = "Diagramme en secteur",
+        Selected = true
+    });
+    
+    }
+
+<h2>Statistiques des achats</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Sélection de la période</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateD, "Date debut")
+            @Html.Telerik().DatePickerFor(model => model.DateD)
+            @Html.ValidationMessageFor(model => model.DateD)
+
+            @Html.LabelFor(model => model.DateF, "Date fin")  
+            @Html.Telerik().DatePickerFor(model => model.DateF)
+            @Html.ValidationMessageFor(model => model.DateF)
+
+            @Html.Label("Type")
+            @Html.DropDownList("Type", Mitems)
+
+            <input type="submit" value="Afficher" />
+          
+        </div>
+        <p>
+            
+        </p>
+    </fieldset>
+}
+
+
+@{
+    //var Mychart = new Chart(width: 600, height: 400, theme: ChartTheme.Vanilla3D);
+    
+    if(Request.QueryString["Type"] != null)
+    {
+
+       
+     /*   List<STOCKON.Models.Liste_produit_vente> Lt = new List<STOCKON.Models.Liste_produit_vente>();
+
+        Lt = (List<STOCKON.Models.Liste_produit_vente>)ViewData["LP"];
+
+
+       if (Request.Form["Type"] == "Diagramme en secteur")
+       {
+
+               Mychart.AddTitle("Produits et quantités vendus")
+        .AddSeries("Default", chartType: "pie",
+               //  xValue: listeproduit, xField: "Article.Libelle_article",
+               //  yValues: listeproduit, yFields: "Quantite")
+             xValue: new[] { "Jan", "Feb", "Mar", "Apr", "May" },
+                   yValues: new[] { "20", "20", "40", "10", "10" });
+        
+       
+       }
+       else
+       {
+           
+          Mychart.AddTitle("Produits et quantités vendus")
+         .AddSeries("Default", chartType: "Area",
+               //  xValue: listeproduit, xField: "Article.Libelle_article",
+               //  yValues: listeproduit, yFields: "Quantite")
+              xValue: new[] { "Jan", "Feb", "Mar", "Apr", "May" },
+                    yValues: new[] { "20", "20", "40", "10", "10" });    
+         
+       }*/
+    
+        <img src="@Url.Action("VStata")" />
+    }
+    
+    
+    
+    
+    }
+   
+  

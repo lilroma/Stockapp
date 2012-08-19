@@ -1,0 +1,22 @@
+﻿    @model STOCKON.Models.Article
+           @using System.Collections
+
+           @if ( Request.QueryString["Grid-mode"] == "edit")
+           { 
+           
+           @Model.Libelle_article;
+           }
+           else
+           {
+
+            @(Html.Telerik().AutoComplete().Name("article").BindTo((IEnumerable<String>)ViewData["art"]))
+           }
+
+@*@(Html.Telerik().DropDownList()
+   .Name("article")
+       .BindTo(new SelectList((IEnumerable)ViewData["articles"], "Id_article", "Libelle_article"))
+       )
+
+   @(Html.DropDownList("article", new SelectList((IEnumerable)ViewData["articles"], "Id_article", "Libelle_article"))
+        
+)*@

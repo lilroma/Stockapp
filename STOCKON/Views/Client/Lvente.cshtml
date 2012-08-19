@@ -1,0 +1,42 @@
+﻿@model IEnumerable<STOCKON.Models.Liste_produit_vente>
+
+@{
+    ViewBag.Title = "Ventes pour un client";
+}
+@if (Model.Count() > 0)
+{
+<h2>Ventes par produit pour le client : @Model.First().Facture_vente.Client.Nom_client </h2>
+}
+<p>
+    @Html.ActionLink("[Ventes par produit]", "Lvente", new {id = Url.RequestContext.RouteData.Values["id"]})
+     @Html.ActionLink("[Factures]", "Lfacture", new {id = Url.RequestContext.RouteData.Values["id"]})
+      @Html.ActionLink("[Règlements]", "Lreglement", new {id = Url.RequestContext.RouteData.Values["id"]})
+</p>
+
+ @{
+        var grid = new WebGrid(Model,rowsPerPage : 20);
+        @grid.GetHtml(tableStyle:"grid",
+        headerStyle:"head",
+        alternatingRowStyle: "altrow",
+                columns: grid.Columns(
+                             grid.Column("Facture_vente.Code_facture", "Numero de pièce"),
+                                      grid.Column("Facture_vente.Date_facture", "Date", format: @<text>@item.Facture_vente.Date_facture.ToString("dd/MM/yyyy")</text>),
+                                                                              grid.Column("Article.Libelle_article", "Libelle article"),
+                                                  grid.Column("Quantite", "Quantité"),
+                                                                                                                     grid.Column("Prix", "PU", format: @<text>@item.Prix.ToString("###,###")</text>),
+                                                                                                                                                                                                              grid.Column("Prix_total", "PT", format: @<text>@item.Prix_total.ToString("###,###")</text>)
+
+
+                                                                                                                                                                                                                                                                           )
+
+                                                                                                                                                                                                                                                               );
+        }
+
+
+        <br />
+
+        
+<div>
+    @Html.ActionLink("Retour à la liste des clients", "Index")
+</div>
+

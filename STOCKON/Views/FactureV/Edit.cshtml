@@ -1,0 +1,144 @@
+﻿@model STOCKON.Models.Facture_vente
+
+@{
+    ViewBag.Title = "Edit";
+    List<SelectListItem> Mitems = new List<SelectListItem>();
+    switch (Model.Type_facture)
+    {
+        case "Bon de commande" :
+             
+    Mitems.Add(new SelectListItem
+    {
+        Text = "Facture",
+        Value = "Facture"
+    });
+    Mitems.Add(new SelectListItem
+    {
+        Text = "Facture comptabilisée",
+        Value = "Facture comptabilisée",
+    });
+    Mitems.Add(new SelectListItem
+    {
+        Text = "Bon de livraison",
+        Value = "Bon de livraison",
+        Selected = true
+    });
+      
+            break;
+        case "Bon de livraison":
+            Mitems.Add(new SelectListItem
+    {
+        Text = "Facture",
+        Value = "Facture",
+        Selected = true
+    });
+    Mitems.Add(new SelectListItem
+    {
+        Text = "Facture comptabilisée",
+        Value = "Facture comptabilisée",
+    });
+            break;
+        default:
+            break;
+    }
+   
+}
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Transformer un document de vente</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Code_facture)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayTextFor(model => model.Code_facture)
+            @Html.HiddenFor(model => model.Id_facture)
+            @Html.ValidationMessageFor(model => model.Id_facture)
+        </div>
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.Id_fournisseur)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Id_fournisseur)
+            @Html.ValidationMessageFor(model => model.Id_fournisseur)
+        </div> *@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Date_facture)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayTextFor(model => model.Date_facture)
+            @Html.ValidationMessageFor(model => model.Date_facture)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Mode_reglement)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayTextFor(model => model.Mode_reglement)
+            @Html.ValidationMessageFor(model => model.Mode_reglement)
+        </div>
+     @if (Model.Type_facture.Trim() == "Facture comptabilisée".Trim())
+     {
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Type_facture)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayTextFor(model => model.Type_facture)
+            @Html.HiddenFor(model => model.Type_facture)
+            @Html.ValidationMessageFor(model => model.Type_facture)
+        </div>
+           <p>
+            <input type="submit" value="Transformer" />
+            </p>
+     }
+     else
+     {
+
+         if (Model.Type_facture.Trim() == "Facture")
+         { 
+         
+              <div class="editor-label">
+            @Html.LabelFor(model => model.Type_facture)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayTextFor(model => model.Type_facture)
+             @Html.HiddenFor(model => model.Type_facture)
+            @Html.ValidationMessageFor(model => model.Type_facture)
+        </div>
+
+        <p>
+            <input type="submit" value="Transformer" />
+            </p>
+         
+         }
+         else
+         { 
+          <div class="editor-label">
+            @Html.LabelFor(model => model.Type_facture)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("type",Mitems)
+            @Html.ValidationMessageFor(model => model.Type_facture)
+        </div>
+
+        <p>
+            <input type="submit" value="Transfomer" />
+            </p>
+         } 
+     
+     }
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Rétour à la liste", "Index")
+</div>
+

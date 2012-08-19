@@ -1,0 +1,142 @@
+﻿@model IEnumerable<STOCKON.Models.Liste_produit_vente>
+
+@{
+    STOCKON.Models.Facture_vente Fa = new STOCKON.Models.Facture_vente();
+
+    Fa = (STOCKON.Models.Facture_vente)ViewData["Fa"];
+    var nf = "FAV00" + Fa.Id_facture;
+    var db = new STOCKON.Models.STOCKONEntities();
+
+    var reglements = from r in db.Reglement
+                     where r.Id_facture == Fa.Id_facture
+                     select r;
+    
+        }
+
+<h2>Facture de vente No : @Fa.Code_facture  </h2>
+<script type="text/javascript">
+    function onEdit(e) {
+        $(".t-grid-cancel-changes").click(function () {
+            alert("cancel");
+        });
+    }
+</script>
+<p>
+     @Html.ActionLink("Saisir un règlement", "Reglement", new { id = Fa.Id_facture })
+</p>
+<br />
+<fieldset>
+    
+    <legend>Facture</legend>
+      <table>
+      <tr>
+      <td>Date de la vente : </td><td>@Fa.Date_facture.ToShortDateString()</td>
+      <td>Client : </td><td>@Fa.Client.Nom_client</td>
+      </tr>
+      <tr>
+      <td>Mode de reglement : </td><td>@Fa.Mode_reglement</td>
+      <td>Type : </td><td>@Fa.Type_facture</td>
+      </tr>
+      </table>
+    
+    </fieldset>
+    <fieldset>
+        <legend>Liste des produits</legend>
+        @Html.ValidationSummary("")
+        @if (reglements.Count() != 0)
+        {
+          @(Html.Telerik().Grid(Model)
+                 .Name("Grid")
+                 .DataKeys(dataKeys => dataKeys.Add(o => o.Id_article))
+                 .Columns(columns =>
+                 {
+                     columns.Bound(o => o.Article).Width(250).Aggregate(a => a.Count()).FooterTemplate(@<text>Total : </text>);
+                     columns.Bound(o => o.Quantite).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                     columns.Bound(o => o.Prix).Width(150).ReadOnly().Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                     columns.Bound(o => o.Prix_Total).Width(150).ReadOnly().Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                 }
+
+                ))
+        }
+        else
+        {
+            if (Fa.Type_facture.Trim() == "Facture comptabilisée")
+            { 
+            @(Html.Telerik().Grid(Model)
+                 .Name("Grid")
+                 .DataKeys(dataKeys => dataKeys.Add(o => o.Id_article))
+                 .Columns(columns =>
+                 {
+                     columns.Bound(o => o.Article).Width(250).Aggregate(a => a.Count()).FooterTemplate(@<text>Total : </text>);
+                     columns.Bound(o => o.Quantite).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                     columns.Bound(o => o.Prix).Width(150).ReadOnly().Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                     columns.Bound(o => o.Prix_Total).Width(150).ReadOnly().Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                 }
+
+                ))
+            
+            }
+            else
+            {
+@(Html.Telerik().Grid(Model)
+                 .Name("Grid")
+                 .DataKeys(dataKeys => dataKeys.Add(o => o.Id_article))
+                 .ToolBar(commands => commands.Insert())
+                 .DataBinding(dataBinding => dataBinding
+                    .Server()
+                     //Home.Index renders the grid initially
+                    .Select("Index", "Liste_produit_vente", new { idm = Fa.Id_facture })
+                     //Home.Insert inserts a new data record
+                        .Insert("Insert", "Liste_produit_vente", new { idm = Fa.Id_facture })
+                     //Home.Update updates an existing data record
+                            .Update("Update", "Liste_produit_vente", new { idm = Fa.Id_facture })
+                     //Home.Delete deletes an existing data record
+                            .Delete("DeleteP", "Liste_produit_vente", new { idm = Fa.Id_facture })
+
+        )
+
+                 .Columns(columns =>
+                 {
+                     columns.Bound(o => o.Article).Width(250).Aggregate(a => a.Count()).FooterTemplate(@<text>Total : </text>); ;
+                     columns.Bound(o => o.Quantite).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                     if (Model.Count() != 0)
+                     {
+                         columns.Bound(o => o.Prix).Width(150).ReadOnly().Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                         columns.Bound(o => o.Prix_Total).Width(150).ReadOnly().Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                     }
+                     else
+                     {
+                         columns.Bound(o => o.Prix).Width(150).ReadOnly().Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                         columns.Bound(o => o.Prix_Total).Width(150).ReadOnly().Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                     }
+                     columns.Command(commands =>
+                     {
+                         commands.Edit();
+                         commands.Delete();
+
+                     });
+
+                 }
+
+
+                                                                                                                                                ).ClientEvents(events => events.OnEdit("onEdit"))
+
+                                                                                                                                            )
+            }
+        }
+                    </fieldset>
+                    <div>
+ @using (Html.BeginForm())
+{
+     <fieldset>
+    <p>
+        TVA : @Html.CheckBox("TVA",Convert.ToBoolean(Fa.TVA)) &nbsp;&nbsp;     Remise : @Html.TextBox("Remise",Fa.Remise)
+        <input type="submit" value="Appliquer" /></p>
+        </fieldset>
+}
+                    </div>
+
+                    <div>
+     @Html.ActionLink("Retour à la liste", "Index", "FactureV") | @Html.ActionLink("Imprimer", "FactureVente", "Report", new { id = Fa.Id_facture }, new { target = "_blank" })
+</div>
+

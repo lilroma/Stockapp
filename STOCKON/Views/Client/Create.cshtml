@@ -1,0 +1,96 @@
+﻿@model STOCKON.Models.Client
+
+@{
+    ViewBag.Title = "Enregistrement nouveau client";
+}
+
+<h2>Enregistrement d'un nouveau client</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@{
+ List<SelectListItem> Categorie = new List<SelectListItem>();
+    Categorie.Add(new SelectListItem
+    {
+        Text = "Grossiste",
+        Value = "Grossiste"
+    });
+    Categorie.Add(new SelectListItem
+    {
+        Text = "Détaillant",
+        Value = "Détaillant",
+        Selected = true
+    });
+
+  }
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Client</legend>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.Code_client)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Code_client)
+            @Html.ValidationMessageFor(model => model.Code_client)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nom_client,"Nom")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Nom_client)
+            @Html.ValidationMessageFor(model => model.Nom_client)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Prenom_client, "Prénom")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Prenom_client)
+            @Html.ValidationMessageFor(model => model.Prenom_client)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Categorie_client)
+        </div>
+        <div class="editor-field">
+            @*Html.EditorFor(model => model.Categorie_client)*@
+            @Html.DropDownList("Categorie", Categorie)
+            @Html.ValidationMessageFor(model => model.Categorie_client)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Adresse_client,"Adresse")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Adresse_client)
+            @Html.ValidationMessageFor(model => model.Adresse_client)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Telephone_client,"Numéro de téléphone")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Telephone_client)
+            @Html.ValidationMessageFor(model => model.Telephone_client)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Mail_client,"Adresse mail")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Mail_client)
+            @Html.ValidationMessageFor(model => model.Mail_client)
+        </div>
+
+        <p>
+            <input type="submit" value="Enregistrer" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Retour à la liste des clients", "Index")
+</div>

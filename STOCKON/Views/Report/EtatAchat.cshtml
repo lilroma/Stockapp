@@ -1,0 +1,72 @@
+﻿@using STOCKON.Models
+@model IList<Facture_achat>
+
+<br />
+<table cellpadding="3" cellspacing="3">
+    <tr border="1" bgcolor="#777777" color="#ffffff">
+        <td width="20%" align="center">
+            No facture
+        </td>
+        <td width="20%" align="center">
+            Date
+        </td>
+        <td width="40%" align="center">
+            Fournisseur
+        </td>
+        <td width="20%" align="center">
+            Montant
+        </td>
+    </tr>
+    @{
+        var OddColor = "#DDEEEE";
+        var evenColor = "#EEFFFF";
+        var Odd = OddColor;
+        string Num = "FAA00";
+        int sum1 = 0;
+        int sum2 = 0;
+    }
+    @foreach (Facture_achat facture in Model)
+    {
+        sum1 = 0;
+          foreach (Liste_produit_achat listep in facture.Liste_produit_achat)
+            {
+                sum1 = sum1 + Convert.ToInt32(listep.Prix_total);
+            }
+
+          sum2 = sum2 + sum1;
+             
+        <tr border="1" bgcolor="@Odd">
+            <td> @Num@facture.Id_facture.ToString()
+            </td>
+            <td>@facture.Date_facture.ToShortDateString()
+            </td>
+            <td align="right">@facture.Fournisseur.Nom_fournisseur @facture.Fournisseur.Prenom_fournisseur
+            </td>
+            <td>@sum1.ToString("###,###")
+            </td>
+         
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+
+    }
+    <tr >
+        <td>
+        </td>
+        <td>
+        </td>
+        <td align="center" bgcolor="#777777" color="#ffffff">
+            <b>Total</b>
+        </td>
+         <td align="right" bgcolor="#777777" color="#ffffff">
+           <b>@sum2.ToString("###,###")</b>
+        </td>
+    </tr>
+</table>
+

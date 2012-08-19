@@ -1,0 +1,21 @@
+﻿@if(Session["uid"] != null) {
+    <text>Bienvenue <strong>@Session["nom"].ToString()</strong>!
+    [ @Html.ActionLink("Deconnexion", "LogOff", "Utilisateur") ],[@Html.ActionLink("Modifier mot de passe", "ChangePassword", "Utilisateur")]</text>
+}
+else {
+    @:[ @Html.ActionLink("Connexion", "LogOn", "Utilisateur") ]
+}
+
+
+@{
+/*
+
+
+@if( Request.IsAuthenticated) {
+    <text>Welcome <strong>@User.Identity.Name</strong>!
+    [ @Html.ActionLink("Deconnexion", "LogOff", "Account") ]</text>
+}
+else {
+    @:[ @Html.ActionLink("Connexion", "LogOn", "Account") ]
+}
+*/}

@@ -1,0 +1,130 @@
+﻿@model IEnumerable<STOCKON.Models.Liste_produit_achat>
+
+@{
+    STOCKON.Models.Facture_achat Fa = new STOCKON.Models.Facture_achat();
+    
+    Fa = (STOCKON.Models.Facture_achat)ViewData["Fa"];
+
+    var nf = "FAA000" + Fa.Id_facture;  
+    
+        }
+
+<h2>Facture d'achat No : @Fa.Code_facture</h2>
+<script type="text/javascript">
+    function onEdit(e) {
+        $(".t-grid-cancel-changes").click(function () {
+            alert("cancel");
+        });
+    }
+</script>
+<p>
+    
+</p>
+<fieldset>
+    
+    <legend>Facture</legend>
+      <table>
+      <tr>
+      <td>Date de l'achat : </td><td>@Fa.Date_facture.Date.ToShortDateString()</td>
+      <td>Fournisseur : </td><td>@Fa.Fournisseur.Nom_fournisseur</td>
+      </tr>
+      <tr>
+      <td>Mode de reglement : </td><td>@Fa.Mode_reglement</td>
+      <td>Type : </td><td>@Fa.Type_facture</td>
+      </tr>
+      </table>
+    
+    </fieldset>
+    <fieldset>
+        <legend>Liste des produits</legend>
+         @Html.ValidationSummary("")
+         @if(Fa.Type_facture.Trim() == "Facture comptabilisée".Trim())
+         {
+@(Html.Telerik().Grid(Model)
+                 .Name("Grid")
+                 .DataKeys(dataKeys => dataKeys.Add(o => o.Id_article))
+                 .Columns(columns =>
+                    {
+                        columns.Bound(o => o.Article).Width(250).Aggregate(a => a.Count()).FooterTemplate(@<text>Total : </text>);;
+                        columns.Bound(o => o.Quantite).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                        if (Model.Count() != 0)
+                        {
+                            columns.Bound(o => o.Prix).Width(150).Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                            columns.Bound(o => o.Prix_total).Width(150).Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                        }
+                        else
+                        {
+                            columns.Bound(o => o.Prix).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                            columns.Bound(o => o.Prix_total).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                        }
+
+                        columns.Command(commands =>
+                        {
+                            commands.Edit();
+                            commands.Delete();
+
+                        });
+
+                    }
+
+                                        )
+
+                                        
+                                                                                                                                         )
+         
+         
+         }
+         else
+         {
+@(Html.Telerik().Grid(Model)
+                 .Name("Grid")
+                 .DataKeys(dataKeys => dataKeys.Add(o => o.Id_article))
+                 .ToolBar(commands => commands.Insert())
+                 .DataBinding(dataBinding => dataBinding
+                    .Server()
+                     //Home.Index renders the grid initially
+                    .Select("Index", "Liste_produit_achat", new { idm = Fa.Id_facture })
+                     //Home.Insert inserts a new data record
+                        .Insert("Insert", "Liste_produit_achat", new { idm = Fa.Id_facture })
+                     //Home.Update updates an existing data record
+                            .Update("Update", "Liste_produit_achat", new { idm = Fa.Id_facture })
+                     //Home.Delete deletes an existing data record
+                            .Delete("DeleteP", "Liste_produit_achat", new { idm = Fa.Id_facture })
+
+        )
+
+                 .Columns(columns =>
+                    {
+                        columns.Bound(o => o.Article).Width(250).Aggregate(a => a.Count()).FooterTemplate(@<text>Total : </text>);;
+                        columns.Bound(o => o.Quantite).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                        if (Model.Count() != 0)
+                        {
+                            columns.Bound(o => o.Prix).Width(150).Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                            columns.Bound(o => o.Prix_total).Width(150).Format("{0:###,###}").Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum.Format("{0:###,###}")</text>);
+                        }
+                        else
+                        {
+                            columns.Bound(o => o.Prix).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                            columns.Bound(o => o.Prix_total).Width(150).Aggregate(a => a.Sum()).FooterTemplate(@<text>@item.Sum</text>);
+                        }
+
+                        columns.Command(commands =>
+                        {
+                            commands.Edit();
+                            commands.Delete();
+
+                        });
+
+                    }
+
+                                        )
+
+                                        
+                                                                                                                                         )
+                                                                                                                                         }
+                    </fieldset>
+
+                    <div>
+     @Html.ActionLink("Retour à la liste", "Index", "FactureA") | @Html.ActionLink("Imprimer", "FactureAchat", "Report", new { id = Fa.Id_facture }, new { target = "_blank" })
+
+</div>

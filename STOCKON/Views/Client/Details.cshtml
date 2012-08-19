@@ -1,0 +1,50 @@
+﻿@model STOCKON.Models.Client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details sur un client</h2>
+
+<fieldset>
+    <legend>Client</legend>
+
+    <div class="display-label">Identifiant</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Id_client)
+    </div>
+
+    <div class="display-label">Nom</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nom_client)
+    </div>
+
+    <div class="display-label">Prénom</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Prenom_client)
+    </div>
+
+    <div class="display-label">Catégorie</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Categorie_client)
+    </div>
+
+    <div class="display-label">Adresse</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Adresse_client)
+    </div>
+
+    <div class="display-label">Numéro de téléphone</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone_client)
+    </div>
+
+    <div class="display-label">Adresse mail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mail_client)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Editer", "Edit", new {  id=Model.Id_client }) |
+    @Html.ActionLink("Retour à la liste des clients", "Index")
+</p>

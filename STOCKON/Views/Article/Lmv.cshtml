@@ -1,0 +1,40 @@
+﻿@model IEnumerable<STOCKON.Models.Liste_produit>
+
+@{
+    ViewBag.Title = "Mouvements de stock";
+}
+@if (Model.Count() > 0)
+{
+<h2>Mouvement de stock du produit : @Model.First().Article.Libelle_article</h2>
+}
+<p>
+    @Html.ActionLink("[Ventes]", "Lvente", new {id = Url.RequestContext.RouteData.Values["id"]})
+      @Html.ActionLink("[Achats]", "Lachat", new {id = Url.RequestContext.RouteData.Values["id"]})
+        @Html.ActionLink("[Mouvement de stock]", "lmv", new {id = Url.RequestContext.RouteData.Values["id"]})
+</p>
+
+ @{
+        var grid = new WebGrid(Model,rowsPerPage : 20);
+        @grid.GetHtml(tableStyle:"grid",
+        headerStyle:"head",
+        alternatingRowStyle: "altrow",
+                columns: grid.Columns(
+                                               grid.Column("Mouvement_stock.Code_mouvement", "Numero de pièce"),
+                                               grid.Column("Mouvement_stock.Date_mouvement", "Date", format: @<text>@item.Mouvement_stock.Date_mouvement.ToString("dd/MM/yyyy")</text>),
+                                                           grid.Column("Quantite", "Quantité"),
+                                                                                                                                       grid.Column("Prix", "PU", format: @<text>@item.Prix.ToString("###,###")</text>),
+                                                                                                                                                                                                                                         grid.Column("Prix_total", "PT", format: @<text>@item.Prix_total.ToString("###,###")</text>),
+                                                                                                                                                                                                                                                                                                                                                                       grid.Column("Mouvement_stock.Type_mouvement", "Type")
+
+
+                                                                                                                                                                                                                                                                                                               )
+
+                                                                                                                                                                                                                                                                                                   );
+        }
+
+    <br />    
+<div>
+    @Html.ActionLink("Retour à la liste des articles", "Index")
+</div>
+
+

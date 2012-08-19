@@ -1,0 +1,58 @@
+﻿@using STOCKON.Models
+@model IList<Client>
+
+<br />
+<table cellpadding="3" cellspacing="3">
+    <tr border="1" bgcolor="#777777" color="#ffffff">
+        <td width="16%" align="center">
+            Nom
+        </td>
+        <td width="16%" align="center">
+            Prénom
+        </td>
+        <td width="16%" align="center">
+            Catégorie
+        </td>
+        <td width="16%" align="center">
+            Adresse
+        </td>
+        <td width="16%" align="center">
+            Téléphone
+        </td>
+        <td width="20%" align="center">
+            Adresse Mail
+        </td>
+    </tr>
+    @{
+        var OddColor = "#DDEEEE";
+        var evenColor = "#EEFFFF";
+        var Odd = OddColor;
+    }
+    @foreach (Client client in Model)
+    {
+        <tr border="1" bgcolor="@Odd">
+            <td>@client.Nom_client
+            </td>
+            <td>@client.Prenom_client
+            </td>
+            <td>@client.Categorie_client
+            </td>
+            <td>@client.Adresse_client
+            </td>
+            <td align="right">@client.Telephone_client
+            </td>
+            <td>@client.Mail_client
+            </td>
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+
+    }
+</table>
+

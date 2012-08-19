@@ -1,0 +1,53 @@
+﻿@using STOCKON.Models
+@model IList<Article>
+
+<br />
+<table cellpadding="3" cellspacing="3">
+    <tr border="1" bgcolor="#777777" color="#ffffff">
+        <td width="40%" align="center">
+            Libellé
+        </td>
+        <td width="20%" align="center">
+            Famille
+        </td>
+        <td width="20%" align="center">
+            Conditionnement
+        </td>
+        <td width="10%" align="center">
+            Qté en stock
+        </td>
+        <td width="10%" align="center">
+            Stock critique
+        </td>
+    </tr>
+    @{
+        var OddColor = "#DDEEEE";
+        var evenColor = "#EEFFFF";
+        var Odd = OddColor;
+    }
+    @foreach (Article article in Model)
+    {
+        <tr border="1" bgcolor="@Odd">
+            <td>@article.Libelle_article
+            </td>
+            <td>@article.Famille_article.Libelle_famille
+            </td>
+            <td>@article.Conditionnement
+            </td>
+            <td align="right">@article.Qte_article
+            </td>
+            <td align="right">@article.Stock_critique
+            </td>
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+
+    }
+</table>
+

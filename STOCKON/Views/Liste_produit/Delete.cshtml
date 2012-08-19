@@ -1,0 +1,38 @@
+﻿@model STOCKON.Models.Liste_produit
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Liste_produit</legend>
+
+    <div class="display-label">Article</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Article.Libelle_article)
+    </div>
+
+    <div class="display-label">Mouvement_stock</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mouvement_stock.Date_mouvement)
+    </div>
+
+    <div class="display-label">Quantite</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Quantite)
+    </div>
+
+    <div class="display-label">Prix</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Prix)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

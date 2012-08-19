@@ -1,0 +1,54 @@
+﻿@model IEnumerable<STOCKON.Models.Reglement>
+
+@{
+    ViewBag.Title = "Liste des règlements";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Ajouter un règlement", "Create", new { id = ViewContext.RouteData.Values["id"].ToString()})
+</p>
+<table>
+    <tr>
+        
+        <th>
+            Référence facture
+        </th>
+        <th>
+            Nom et Prénom client
+        </th>
+        <th>
+            Date règelement
+        </th>
+        <th>
+            Montant règlement
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @item.Id_facture
+        </td>
+        <td>
+            @item.Client.Nom_client  @item.Client.Prenom_client 
+        </td>
+        <td>
+             @item.Date_regelement.ToShortDateString()
+        </td>
+        <td>
+            @item.Montant_regelement.AsInt().ToString("###,###")
+        </td>
+         <td>
+            @Html.ActionLink("Modifier", "Edit", new {  id =item.Id_facture }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id_facture }) |
+            @Html.ActionLink("Supprimer", "Delete", new { id = item.Id_facture })
+        </td>
+    </tr>
+}
+
+</table>
+

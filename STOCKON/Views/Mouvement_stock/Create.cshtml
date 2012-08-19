@@ -1,0 +1,62 @@
+﻿@model STOCKON.Models.Mouvement_stock
+
+@{
+    ViewBag.Title = "Mouvement de stock";
+}
+
+<h2>Ajouter</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@{
+    List<SelectListItem> Mitems = new List<SelectListItem>();
+    Mitems.Add(new SelectListItem
+    {
+        Text = "Entrée en stock",
+        Value = "Entrée en stock"
+    });
+    Mitems.Add(new SelectListItem
+    {
+        Text = "Sortie de stock",
+        Value = "Sortie de stock",
+        Selected = true
+    });
+    }
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Mouvement de stock</legend>
+
+        <div class="editor-label">
+            @Html.Label("Date du l'opération")
+        </div>
+        <div class="editor-field">
+            @Html.Telerik().DatePickerFor(model => model.Date_mouvement).Value(DateTime.Now)
+            @Html.ValidationMessageFor(model => model.Date_mouvement)
+            @Html.HiddenFor(model => model.Code_mouvement)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Type d'opération")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TypeM",Mitems)
+            @Html.ValidationMessageFor(model => model.Type_mouvement)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Libellé de l'opération")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Libelle_mouvement)
+            @Html.ValidationMessageFor(model => model.Libelle_mouvement)
+        </div>
+       
+        <p>
+            <input type="submit" value="Valider" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Retour à la liste", "Index")
+</div>

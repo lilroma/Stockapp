@@ -1,0 +1,47 @@
+﻿@model IEnumerable<STOCKON.Models.ProduitL>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+ @{
+    STOCKON.Models.Mouvement_stock Mv = new STOCKON.Models.Mouvement_stock();
+    Mv = (STOCKON.Models.Mouvement_stock)ViewData["op"];
+        
+  }
+
+   @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .DataKeys(keys => keys.Add(l => l.Id_article)) 
+        .ToolBar(commands =>
+        {
+            commands.Insert();
+        })
+           .DataBinding(dataBinding => dataBinding
+           .Ajax()
+                   .Select("IndexAjax", "Liste_produit")
+                   .Insert("Insert", "Liste_produit")
+                   .Update("Edition", "Liste_produit")
+                   .Delete("Delete", "Liste_produit"))
+        .Columns(columns =>
+        {
+            columns.Bound(l => l.Article).Width(120);
+            columns.Bound(l => l.Conditionnement).Width(120);
+            columns.Bound(l => l.Quantite).Width(120);
+            columns.Bound(l => l.Prix).Width(120);
+            columns.Command(commands =>
+            {
+                commands.Edit();
+                commands.Delete();
+
+
+            }).Width(200);
+        }
+
+
+      )
+       )

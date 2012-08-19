@@ -1,0 +1,974 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="STOCKONModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="STOCKONModelStoreContainer">
+          <EntitySet Name="Article" EntityType="STOCKONModel.Store.Article" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Client" EntityType="STOCKONModel.Store.Client" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Facture_achat" EntityType="STOCKONModel.Store.Facture_achat" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Facture_vente" EntityType="STOCKONModel.Store.Facture_vente" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Famille_article" EntityType="STOCKONModel.Store.Famille_article" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Fournisseur" EntityType="STOCKONModel.Store.Fournisseur" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Liste_produit" EntityType="STOCKONModel.Store.Liste_produit" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Liste_produit_achat" EntityType="STOCKONModel.Store.Liste_produit_achat" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Liste_produit_vente" EntityType="STOCKONModel.Store.Liste_produit_vente" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Log" EntityType="STOCKONModel.Store.Log" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Mouvement_stock" EntityType="STOCKONModel.Store.Mouvement_stock" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Preference" EntityType="STOCKONModel.Store.Preference" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Reglement" EntityType="STOCKONModel.Store.Reglement" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Utilisateur" EntityType="STOCKONModel.Store.Utilisateur" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Article_Famille_article" Association="STOCKONModel.Store.FK_Article_Famille_article">
+            <End Role="Famille_article" EntitySet="Famille_article" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Facture_achat_Fournisseur" Association="STOCKONModel.Store.FK_Facture_achat_Fournisseur">
+            <End Role="Fournisseur" EntitySet="Fournisseur" />
+            <End Role="Facture_achat" EntitySet="Facture_achat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Facture_vente_Client" Association="STOCKONModel.Store.FK_Facture_vente_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Facture_vente" EntitySet="Facture_vente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_achat_Article" Association="STOCKONModel.Store.FK_Liste_produit_achat_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Liste_produit_achat" EntitySet="Liste_produit_achat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_achat_Facture_achat" Association="STOCKONModel.Store.FK_Liste_produit_achat_Facture_achat">
+            <End Role="Facture_achat" EntitySet="Facture_achat" />
+            <End Role="Liste_produit_achat" EntitySet="Liste_produit_achat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_Article" Association="STOCKONModel.Store.FK_Liste_produit_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Liste_produit" EntitySet="Liste_produit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_Mouvement_stock" Association="STOCKONModel.Store.FK_Liste_produit_Mouvement_stock">
+            <End Role="Mouvement_stock" EntitySet="Mouvement_stock" />
+            <End Role="Liste_produit" EntitySet="Liste_produit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_vente_Article" Association="STOCKONModel.Store.FK_Liste_produit_vente_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Liste_produit_vente" EntitySet="Liste_produit_vente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_vente_Facture_vente" Association="STOCKONModel.Store.FK_Liste_produit_vente_Facture_vente">
+            <End Role="Facture_vente" EntitySet="Facture_vente" />
+            <End Role="Liste_produit_vente" EntitySet="Liste_produit_vente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reglement_Client" Association="STOCKONModel.Store.FK_Reglement_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Reglement" EntitySet="Reglement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reglement_Facture_vente" Association="STOCKONModel.Store.FK_Reglement_Facture_vente">
+            <End Role="Facture_vente" EntitySet="Facture_vente" />
+            <End Role="Reglement" EntitySet="Reglement" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Id_article" />
+          </Key>
+          <Property Name="Id_article" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle_article" Type="varchar" MaxLength="150" />
+          <Property Name="Id_famille" Type="smallint" />
+          <Property Name="Qte_article" Type="int" />
+          <Property Name="Stock_critique" Type="int" />
+          <Property Name="Prix_grossiste" Type="money" />
+          <Property Name="Prix_detaillant" Type="money" />
+          <Property Name="Conditionnement" Type="varchar" MaxLength="150" />
+          <Property Name="Code_article" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id_client" />
+          </Key>
+          <Property Name="Id_client" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_client" Type="varchar" MaxLength="150" />
+          <Property Name="Prenom_client" Type="varchar" MaxLength="150" />
+          <Property Name="Categorie_client" Type="varchar" MaxLength="150" />
+          <Property Name="Adresse_client" Type="varchar" MaxLength="150" />
+          <Property Name="Telephone_client" Type="varchar" MaxLength="150" />
+          <Property Name="Mail_client" Type="varchar" MaxLength="150" />
+          <Property Name="Code_client" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Facture_achat">
+          <Key>
+            <PropertyRef Name="Id_facture" />
+          </Key>
+          <Property Name="Id_facture" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_fournisseur" Type="smallint" />
+          <Property Name="Date_facture" Type="datetime" />
+          <Property Name="Mode_reglement" Type="varchar" MaxLength="150" />
+          <Property Name="Type_facture" Type="varchar" MaxLength="150" />
+          <Property Name="Code_facture" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Facture_vente">
+          <Key>
+            <PropertyRef Name="Id_facture" />
+          </Key>
+          <Property Name="Id_facture" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_client" Type="smallint" />
+          <Property Name="Date_facture" Type="datetime" />
+          <Property Name="Mode_reglement" Type="varchar" MaxLength="150" />
+          <Property Name="Type_facture" Type="varchar" MaxLength="150" />
+          <Property Name="Code_facture" Type="varchar" MaxLength="150" />
+          <Property Name="Remise" Type="float" />
+          <Property Name="TVA" Type="bit" />
+        </EntityType>
+        <EntityType Name="Famille_article">
+          <Key>
+            <PropertyRef Name="Id_famille" />
+          </Key>
+          <Property Name="Id_famille" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle_famille" Type="varchar" MaxLength="150" />
+          <Property Name="Conditionnement" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="Id_fournisseur" />
+          </Key>
+          <Property Name="Id_fournisseur" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_fournisseur" Type="varchar" MaxLength="150" />
+          <Property Name="Prenom_fournisseur" Type="varchar" MaxLength="150" />
+          <Property Name="Adresse_fournisseur" Type="varchar" MaxLength="150" />
+          <Property Name="Telephone_fournisseur" Type="varchar" MaxLength="150" />
+          <Property Name="Mail__fournisseur" Type="varchar" MaxLength="150" />
+          <Property Name="Code_fournisseur" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Liste_produit">
+          <Key>
+            <PropertyRef Name="Id_article" />
+            <PropertyRef Name="Id_operation" />
+          </Key>
+          <Property Name="Id_article" Type="smallint" Nullable="false" />
+          <Property Name="Id_operation" Type="smallint" Nullable="false" />
+          <Property Name="Quantite" Type="int" />
+          <Property Name="Prix" Type="money" />
+          <Property Name="Prix_Total" Type="money" />
+        </EntityType>
+        <EntityType Name="Liste_produit_achat">
+          <Key>
+            <PropertyRef Name="Id_article" />
+            <PropertyRef Name="Id_facture" />
+          </Key>
+          <Property Name="Id_article" Type="smallint" Nullable="false" />
+          <Property Name="Id_facture" Type="smallint" Nullable="false" />
+          <Property Name="Quantite" Type="int" />
+          <Property Name="Prix" Type="money" />
+          <Property Name="Prix_total" Type="money" />
+        </EntityType>
+        <EntityType Name="Liste_produit_vente">
+          <Key>
+            <PropertyRef Name="Id_article" />
+            <PropertyRef Name="Id_facture" />
+          </Key>
+          <Property Name="Id_article" Type="smallint" Nullable="false" />
+          <Property Name="Id_facture" Type="smallint" Nullable="false" />
+          <Property Name="Quantite" Type="int" />
+          <Property Name="Prix" Type="money" />
+          <Property Name="Prix_Total" Type="money" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Utilisateur" Type="varchar" MaxLength="150" />
+          <Property Name="Operation" Type="varchar" MaxLength="150" />
+          <Property Name="Date" Type="varchar" MaxLength="150" />
+          <Property Name="TableOP" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Mouvement_stock">
+          <Key>
+            <PropertyRef Name="ID_mouvement" />
+          </Key>
+          <Property Name="ID_mouvement" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Date_mouvement" Type="datetime" Nullable="false" />
+          <Property Name="Type_mouvement" Type="varchar" MaxLength="150" />
+          <Property Name="Libelle_mouvement" Type="varchar" MaxLength="150" />
+          <Property Name="Code_mouvement" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Preference">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Nom" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="Activite" Type="varchar" MaxLength="150" />
+          <Property Name="Adresse" Type="varchar" MaxLength="150" />
+          <Property Name="Num_telephone" Type="varchar" MaxLength="150" />
+          <Property Name="Type" Type="varchar" MaxLength="150" />
+          <Property Name="Taux_tva" Type="float" />
+          <Property Name="Duree_echeance" Type="int" />
+          <Property Name="Id" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CRecherche" Type="varchar" MaxLength="150" />
+          <Property Name="Remise" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Reglement">
+          <Key>
+            <PropertyRef Name="Id_facture" />
+            <PropertyRef Name="Id_client" />
+            <PropertyRef Name="Date_regelement" />
+          </Key>
+          <Property Name="Id_facture" Type="smallint" Nullable="false" />
+          <Property Name="Id_client" Type="smallint" Nullable="false" />
+          <Property Name="Date_regelement" Type="datetime" Nullable="false" />
+          <Property Name="Montant_regelement" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="Id_utilisateur" />
+          </Key>
+          <Property Name="Id_utilisateur" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="varchar" MaxLength="150" />
+          <Property Name="Pasword" Type="varchar" MaxLength="150" />
+          <Property Name="Client" Type="bit" />
+          <Property Name="Fournissaeur" Type="bit" />
+          <Property Name="Facture" Type="bit" />
+          <Property Name="Article" Type="bit" />
+          <Property Name="Mouvement_stock" Type="bit" />
+          <Property Name="Etats" Type="bit" />
+          <Property Name="PFacture" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Article_Famille_article">
+          <End Role="Famille_article" Type="STOCKONModel.Store.Famille_article" Multiplicity="0..1" />
+          <End Role="Article" Type="STOCKONModel.Store.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Famille_article">
+              <PropertyRef Name="Id_famille" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="Id_famille" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Facture_achat_Fournisseur">
+          <End Role="Fournisseur" Type="STOCKONModel.Store.Fournisseur" Multiplicity="0..1" />
+          <End Role="Facture_achat" Type="STOCKONModel.Store.Facture_achat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fournisseur">
+              <PropertyRef Name="Id_fournisseur" />
+            </Principal>
+            <Dependent Role="Facture_achat">
+              <PropertyRef Name="Id_fournisseur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Facture_vente_Client">
+          <End Role="Client" Type="STOCKONModel.Store.Client" Multiplicity="0..1" />
+          <End Role="Facture_vente" Type="STOCKONModel.Store.Facture_vente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id_client" />
+            </Principal>
+            <Dependent Role="Facture_vente">
+              <PropertyRef Name="Id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_achat_Article">
+          <End Role="Article" Type="STOCKONModel.Store.Article" Multiplicity="1" />
+          <End Role="Liste_produit_achat" Type="STOCKONModel.Store.Liste_produit_achat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id_article" />
+            </Principal>
+            <Dependent Role="Liste_produit_achat">
+              <PropertyRef Name="Id_article" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_achat_Facture_achat">
+          <End Role="Facture_achat" Type="STOCKONModel.Store.Facture_achat" Multiplicity="1" />
+          <End Role="Liste_produit_achat" Type="STOCKONModel.Store.Liste_produit_achat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facture_achat">
+              <PropertyRef Name="Id_facture" />
+            </Principal>
+            <Dependent Role="Liste_produit_achat">
+              <PropertyRef Name="Id_facture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_Article">
+          <End Role="Article" Type="STOCKONModel.Store.Article" Multiplicity="1" />
+          <End Role="Liste_produit" Type="STOCKONModel.Store.Liste_produit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id_article" />
+            </Principal>
+            <Dependent Role="Liste_produit">
+              <PropertyRef Name="Id_article" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_Mouvement_stock">
+          <End Role="Mouvement_stock" Type="STOCKONModel.Store.Mouvement_stock" Multiplicity="1" />
+          <End Role="Liste_produit" Type="STOCKONModel.Store.Liste_produit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mouvement_stock">
+              <PropertyRef Name="ID_mouvement" />
+            </Principal>
+            <Dependent Role="Liste_produit">
+              <PropertyRef Name="Id_operation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_vente_Article">
+          <End Role="Article" Type="STOCKONModel.Store.Article" Multiplicity="1" />
+          <End Role="Liste_produit_vente" Type="STOCKONModel.Store.Liste_produit_vente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id_article" />
+            </Principal>
+            <Dependent Role="Liste_produit_vente">
+              <PropertyRef Name="Id_article" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_vente_Facture_vente">
+          <End Role="Facture_vente" Type="STOCKONModel.Store.Facture_vente" Multiplicity="1" />
+          <End Role="Liste_produit_vente" Type="STOCKONModel.Store.Liste_produit_vente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facture_vente">
+              <PropertyRef Name="Id_facture" />
+            </Principal>
+            <Dependent Role="Liste_produit_vente">
+              <PropertyRef Name="Id_facture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reglement_Client">
+          <End Role="Client" Type="STOCKONModel.Store.Client" Multiplicity="1" />
+          <End Role="Reglement" Type="STOCKONModel.Store.Reglement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id_client" />
+            </Principal>
+            <Dependent Role="Reglement">
+              <PropertyRef Name="Id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reglement_Facture_vente">
+          <End Role="Facture_vente" Type="STOCKONModel.Store.Facture_vente" Multiplicity="1" />
+          <End Role="Reglement" Type="STOCKONModel.Store.Reglement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facture_vente">
+              <PropertyRef Name="Id_facture" />
+            </Principal>
+            <Dependent Role="Reglement">
+              <PropertyRef Name="Id_facture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="STOCKONModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="STOCKONEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Article" EntityType="STOCKONModel.Article" />
+          <EntitySet Name="Client" EntityType="STOCKONModel.Client" />
+          <EntitySet Name="Facture_achat" EntityType="STOCKONModel.Facture_achat" />
+          <EntitySet Name="Facture_vente" EntityType="STOCKONModel.Facture_vente" />
+          <EntitySet Name="Famille_article" EntityType="STOCKONModel.Famille_article" />
+          <EntitySet Name="Fournisseur" EntityType="STOCKONModel.Fournisseur" />
+          <EntitySet Name="Liste_produit" EntityType="STOCKONModel.Liste_produit" />
+          <EntitySet Name="Liste_produit_achat" EntityType="STOCKONModel.Liste_produit_achat" />
+          <EntitySet Name="Liste_produit_vente" EntityType="STOCKONModel.Liste_produit_vente" />
+          <EntitySet Name="Mouvement_stock" EntityType="STOCKONModel.Mouvement_stock" />
+          <EntitySet Name="Reglement" EntityType="STOCKONModel.Reglement" />
+          <EntitySet Name="Utilisateur" EntityType="STOCKONModel.Utilisateur" />
+          <AssociationSet Name="FK_Article_Famille_article" Association="STOCKONModel.FK_Article_Famille_article">
+            <End Role="Famille_article" EntitySet="Famille_article" />
+            <End Role="Article" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_achat_Article" Association="STOCKONModel.FK_Liste_produit_achat_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Liste_produit_achat" EntitySet="Liste_produit_achat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_Article" Association="STOCKONModel.FK_Liste_produit_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Liste_produit" EntitySet="Liste_produit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_vente_Article" Association="STOCKONModel.FK_Liste_produit_vente_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Liste_produit_vente" EntitySet="Liste_produit_vente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Facture_vente_Client" Association="STOCKONModel.FK_Facture_vente_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Facture_vente" EntitySet="Facture_vente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reglement_Client" Association="STOCKONModel.FK_Reglement_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Reglement" EntitySet="Reglement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Facture_achat_Fournisseur" Association="STOCKONModel.FK_Facture_achat_Fournisseur">
+            <End Role="Fournisseur" EntitySet="Fournisseur" />
+            <End Role="Facture_achat" EntitySet="Facture_achat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_achat_Facture_achat" Association="STOCKONModel.FK_Liste_produit_achat_Facture_achat">
+            <End Role="Facture_achat" EntitySet="Facture_achat" />
+            <End Role="Liste_produit_achat" EntitySet="Liste_produit_achat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_vente_Facture_vente" Association="STOCKONModel.FK_Liste_produit_vente_Facture_vente">
+            <End Role="Facture_vente" EntitySet="Facture_vente" />
+            <End Role="Liste_produit_vente" EntitySet="Liste_produit_vente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reglement_Facture_vente" Association="STOCKONModel.FK_Reglement_Facture_vente">
+            <End Role="Facture_vente" EntitySet="Facture_vente" />
+            <End Role="Reglement" EntitySet="Reglement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liste_produit_Mouvement_stock" Association="STOCKONModel.FK_Liste_produit_Mouvement_stock">
+            <End Role="Mouvement_stock" EntitySet="Mouvement_stock" />
+            <End Role="Liste_produit" EntitySet="Liste_produit" />
+          </AssociationSet>
+          <EntitySet Name="Preference" EntityType="STOCKONModel.Preference" />
+          <EntitySet Name="Log" EntityType="STOCKONModel.Log" />
+        </EntityContainer>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Id_article" />
+          </Key>
+          <Property Name="Id_article" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle_article" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Id_famille" Type="Int16" />
+          <Property Name="Qte_article" Type="Int32" />
+          <Property Name="Stock_critique" Type="Int32" />
+          <Property Name="Prix_grossiste" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Prix_detaillant" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Conditionnement" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Famille_article" Relationship="STOCKONModel.FK_Article_Famille_article" FromRole="Article" ToRole="Famille_article" />
+          <NavigationProperty Name="Liste_produit_achat" Relationship="STOCKONModel.FK_Liste_produit_achat_Article" FromRole="Article" ToRole="Liste_produit_achat" />
+          <NavigationProperty Name="Liste_produit" Relationship="STOCKONModel.FK_Liste_produit_Article" FromRole="Article" ToRole="Liste_produit" />
+          <NavigationProperty Name="Liste_produit_vente" Relationship="STOCKONModel.FK_Liste_produit_vente_Article" FromRole="Article" ToRole="Liste_produit_vente" />
+          <Property Type="String" Name="Code_article" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id_client" />
+          </Key>
+          <Property Name="Id_client" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_client" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Prenom_client" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Categorie_client" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Adresse_client" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Telephone_client" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Mail_client" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Facture_vente" Relationship="STOCKONModel.FK_Facture_vente_Client" FromRole="Client" ToRole="Facture_vente" />
+          <NavigationProperty Name="Reglement" Relationship="STOCKONModel.FK_Reglement_Client" FromRole="Client" ToRole="Reglement" />
+          <Property Type="String" Name="Code_client" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Facture_achat">
+          <Key>
+            <PropertyRef Name="Id_facture" />
+          </Key>
+          <Property Name="Id_facture" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_fournisseur" Type="Int16" />
+          <Property Name="Date_facture" Type="DateTime" />
+          <Property Name="Mode_reglement" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Type_facture" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Fournisseur" Relationship="STOCKONModel.FK_Facture_achat_Fournisseur" FromRole="Facture_achat" ToRole="Fournisseur" />
+          <NavigationProperty Name="Liste_produit_achat" Relationship="STOCKONModel.FK_Liste_produit_achat_Facture_achat" FromRole="Facture_achat" ToRole="Liste_produit_achat" />
+          <Property Type="String" Name="Code_facture" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Facture_vente">
+          <Key>
+            <PropertyRef Name="Id_facture" />
+          </Key>
+          <Property Name="Id_facture" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_client" Type="Int16" />
+          <Property Name="Date_facture" Type="DateTime" />
+          <Property Name="Mode_reglement" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Type_facture" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Client" Relationship="STOCKONModel.FK_Facture_vente_Client" FromRole="Facture_vente" ToRole="Client" />
+          <NavigationProperty Name="Liste_produit_vente" Relationship="STOCKONModel.FK_Liste_produit_vente_Facture_vente" FromRole="Facture_vente" ToRole="Liste_produit_vente" />
+          <NavigationProperty Name="Reglement" Relationship="STOCKONModel.FK_Reglement_Facture_vente" FromRole="Facture_vente" ToRole="Reglement" />
+          <Property Type="String" Name="Code_facture" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="Remise" />
+          <Property Type="Boolean" Name="TVA" />
+        </EntityType>
+        <EntityType Name="Famille_article">
+          <Key>
+            <PropertyRef Name="Id_famille" />
+          </Key>
+          <Property Name="Id_famille" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle_famille" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Conditionnement" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Article" Relationship="STOCKONModel.FK_Article_Famille_article" FromRole="Famille_article" ToRole="Article" />
+        </EntityType>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="Id_fournisseur" />
+          </Key>
+          <Property Name="Id_fournisseur" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_fournisseur" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Prenom_fournisseur" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Adresse_fournisseur" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Telephone_fournisseur" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Mail__fournisseur" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Facture_achat" Relationship="STOCKONModel.FK_Facture_achat_Fournisseur" FromRole="Fournisseur" ToRole="Facture_achat" />
+          <Property Type="String" Name="Code_fournisseur" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Liste_produit">
+          <Key>
+            <PropertyRef Name="Id_article" />
+            <PropertyRef Name="Id_operation" />
+          </Key>
+          <Property Name="Id_article" Type="Int16" Nullable="false" />
+          <Property Name="Id_operation" Type="Int16" Nullable="false" />
+          <Property Name="Quantite" Type="Int32" />
+          <Property Name="Prix" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Article" Relationship="STOCKONModel.FK_Liste_produit_Article" FromRole="Liste_produit" ToRole="Article" />
+          <NavigationProperty Name="Mouvement_stock" Relationship="STOCKONModel.FK_Liste_produit_Mouvement_stock" FromRole="Liste_produit" ToRole="Mouvement_stock" />
+          <Property Type="Decimal" Name="Prix_Total" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Liste_produit_achat">
+          <Key>
+            <PropertyRef Name="Id_article" />
+            <PropertyRef Name="Id_facture" />
+          </Key>
+          <Property Name="Id_article" Type="Int16" Nullable="false" />
+          <Property Name="Id_facture" Type="Int16" Nullable="false" />
+          <Property Name="Quantite" Type="Int32" />
+          <Property Name="Prix" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Article" Relationship="STOCKONModel.FK_Liste_produit_achat_Article" FromRole="Liste_produit_achat" ToRole="Article" />
+          <NavigationProperty Name="Facture_achat" Relationship="STOCKONModel.FK_Liste_produit_achat_Facture_achat" FromRole="Liste_produit_achat" ToRole="Facture_achat" />
+          <Property Type="Decimal" Name="Prix_total" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Liste_produit_vente">
+          <Key>
+            <PropertyRef Name="Id_article" />
+            <PropertyRef Name="Id_facture" />
+          </Key>
+          <Property Name="Id_article" Type="Int16" Nullable="false" />
+          <Property Name="Id_facture" Type="Int16" Nullable="false" />
+          <Property Name="Quantite" Type="Int32" />
+          <Property Name="Prix" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Article" Relationship="STOCKONModel.FK_Liste_produit_vente_Article" FromRole="Liste_produit_vente" ToRole="Article" />
+          <NavigationProperty Name="Facture_vente" Relationship="STOCKONModel.FK_Liste_produit_vente_Facture_vente" FromRole="Liste_produit_vente" ToRole="Facture_vente" />
+          <Property Type="Decimal" Name="Prix_Total" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Mouvement_stock">
+          <Key>
+            <PropertyRef Name="ID_mouvement" />
+          </Key>
+          <Property Name="ID_mouvement" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date_mouvement" Type="DateTime" Nullable="false" />
+          <Property Name="Type_mouvement" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Libelle_mouvement" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Liste_produit" Relationship="STOCKONModel.FK_Liste_produit_Mouvement_stock" FromRole="Mouvement_stock" ToRole="Liste_produit" />
+          <Property Type="String" Name="Code_mouvement" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Reglement">
+          <Key>
+            <PropertyRef Name="Id_facture" />
+            <PropertyRef Name="Id_client" />
+            <PropertyRef Name="Date_regelement" />
+          </Key>
+          <Property Name="Id_facture" Type="Int16" Nullable="false" />
+          <Property Name="Id_client" Type="Int16" Nullable="false" />
+          <Property Name="Date_regelement" Type="DateTime" Nullable="false" />
+          <Property Name="Montant_regelement" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Client" Relationship="STOCKONModel.FK_Reglement_Client" FromRole="Reglement" ToRole="Client" />
+          <NavigationProperty Name="Facture_vente" Relationship="STOCKONModel.FK_Reglement_Facture_vente" FromRole="Reglement" ToRole="Facture_vente" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="Id_utilisateur" />
+          </Key>
+          <Property Name="Id_utilisateur" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Pasword" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Client" Type="Boolean" />
+          <Property Name="Fournissaeur" Type="Boolean" />
+          <Property Name="Facture" Type="Boolean" />
+          <Property Name="Article" Type="Boolean" />
+          <Property Name="Mouvement_stock" Type="Boolean" />
+          <Property Name="Etats" Type="Boolean" />
+          <Property Type="Boolean" Name="PFacture" />
+        </EntityType>
+        <Association Name="FK_Article_Famille_article">
+          <End Role="Famille_article" Type="STOCKONModel.Famille_article" Multiplicity="0..1" />
+          <End Role="Article" Type="STOCKONModel.Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Famille_article">
+              <PropertyRef Name="Id_famille" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="Id_famille" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_achat_Article">
+          <End Role="Article" Type="STOCKONModel.Article" Multiplicity="1" />
+          <End Role="Liste_produit_achat" Type="STOCKONModel.Liste_produit_achat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id_article" />
+            </Principal>
+            <Dependent Role="Liste_produit_achat">
+              <PropertyRef Name="Id_article" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_Article">
+          <End Role="Article" Type="STOCKONModel.Article" Multiplicity="1" />
+          <End Role="Liste_produit" Type="STOCKONModel.Liste_produit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id_article" />
+            </Principal>
+            <Dependent Role="Liste_produit">
+              <PropertyRef Name="Id_article" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_vente_Article">
+          <End Role="Article" Type="STOCKONModel.Article" Multiplicity="1" />
+          <End Role="Liste_produit_vente" Type="STOCKONModel.Liste_produit_vente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id_article" />
+            </Principal>
+            <Dependent Role="Liste_produit_vente">
+              <PropertyRef Name="Id_article" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Facture_vente_Client">
+          <End Role="Client" Type="STOCKONModel.Client" Multiplicity="0..1" />
+          <End Role="Facture_vente" Type="STOCKONModel.Facture_vente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id_client" />
+            </Principal>
+            <Dependent Role="Facture_vente">
+              <PropertyRef Name="Id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reglement_Client">
+          <End Role="Client" Type="STOCKONModel.Client" Multiplicity="1" />
+          <End Role="Reglement" Type="STOCKONModel.Reglement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id_client" />
+            </Principal>
+            <Dependent Role="Reglement">
+              <PropertyRef Name="Id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Facture_achat_Fournisseur">
+          <End Role="Fournisseur" Type="STOCKONModel.Fournisseur" Multiplicity="0..1" />
+          <End Role="Facture_achat" Type="STOCKONModel.Facture_achat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fournisseur">
+              <PropertyRef Name="Id_fournisseur" />
+            </Principal>
+            <Dependent Role="Facture_achat">
+              <PropertyRef Name="Id_fournisseur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_achat_Facture_achat">
+          <End Role="Facture_achat" Type="STOCKONModel.Facture_achat" Multiplicity="1" />
+          <End Role="Liste_produit_achat" Type="STOCKONModel.Liste_produit_achat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facture_achat">
+              <PropertyRef Name="Id_facture" />
+            </Principal>
+            <Dependent Role="Liste_produit_achat">
+              <PropertyRef Name="Id_facture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_vente_Facture_vente">
+          <End Role="Facture_vente" Type="STOCKONModel.Facture_vente" Multiplicity="1" />
+          <End Role="Liste_produit_vente" Type="STOCKONModel.Liste_produit_vente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facture_vente">
+              <PropertyRef Name="Id_facture" />
+            </Principal>
+            <Dependent Role="Liste_produit_vente">
+              <PropertyRef Name="Id_facture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reglement_Facture_vente">
+          <End Role="Facture_vente" Type="STOCKONModel.Facture_vente" Multiplicity="1" />
+          <End Role="Reglement" Type="STOCKONModel.Reglement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facture_vente">
+              <PropertyRef Name="Id_facture" />
+            </Principal>
+            <Dependent Role="Reglement">
+              <PropertyRef Name="Id_facture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liste_produit_Mouvement_stock">
+          <End Role="Mouvement_stock" Type="STOCKONModel.Mouvement_stock" Multiplicity="1" />
+          <End Role="Liste_produit" Type="STOCKONModel.Liste_produit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mouvement_stock">
+              <PropertyRef Name="ID_mouvement" />
+            </Principal>
+            <Dependent Role="Liste_produit">
+              <PropertyRef Name="Id_operation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Preference">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Nom" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Activite" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Adresse" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Num_telephone" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Type" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="Taux_tva" />
+          <Property Type="Int32" Name="Duree_echeance" />
+          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="CRecherche" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Remise" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int16" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Utilisateur" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Operation" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Date" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TableOP" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="STOCKONModelStoreContainer" CdmEntityContainer="STOCKONEntities">
+          <EntitySetMapping Name="Article"><EntityTypeMapping TypeName="STOCKONModel.Article"><MappingFragment StoreEntitySet="Article">
+            <ScalarProperty Name="Code_article" ColumnName="Code_article" />
+                <ScalarProperty Name="Id_article" ColumnName="Id_article" />
+            <ScalarProperty Name="Libelle_article" ColumnName="Libelle_article" />
+            <ScalarProperty Name="Id_famille" ColumnName="Id_famille" />
+            <ScalarProperty Name="Qte_article" ColumnName="Qte_article" />
+            <ScalarProperty Name="Stock_critique" ColumnName="Stock_critique" />
+            <ScalarProperty Name="Prix_grossiste" ColumnName="Prix_grossiste" />
+            <ScalarProperty Name="Prix_detaillant" ColumnName="Prix_detaillant" />
+            <ScalarProperty Name="Conditionnement" ColumnName="Conditionnement" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Client"><EntityTypeMapping TypeName="STOCKONModel.Client"><MappingFragment StoreEntitySet="Client">
+            <ScalarProperty Name="Code_client" ColumnName="Code_client" />
+                <ScalarProperty Name="Id_client" ColumnName="Id_client" />
+            <ScalarProperty Name="Nom_client" ColumnName="Nom_client" />
+            <ScalarProperty Name="Prenom_client" ColumnName="Prenom_client" />
+            <ScalarProperty Name="Categorie_client" ColumnName="Categorie_client" />
+            <ScalarProperty Name="Adresse_client" ColumnName="Adresse_client" />
+            <ScalarProperty Name="Telephone_client" ColumnName="Telephone_client" />
+            <ScalarProperty Name="Mail_client" ColumnName="Mail_client" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Facture_achat"><EntityTypeMapping TypeName="STOCKONModel.Facture_achat"><MappingFragment StoreEntitySet="Facture_achat">
+            <ScalarProperty Name="Code_facture" ColumnName="Code_facture" />
+                <ScalarProperty Name="Id_facture" ColumnName="Id_facture" />
+            <ScalarProperty Name="Id_fournisseur" ColumnName="Id_fournisseur" />
+            <ScalarProperty Name="Date_facture" ColumnName="Date_facture" />
+            <ScalarProperty Name="Mode_reglement" ColumnName="Mode_reglement" />
+            <ScalarProperty Name="Type_facture" ColumnName="Type_facture" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Facture_vente"><EntityTypeMapping TypeName="STOCKONModel.Facture_vente"><MappingFragment StoreEntitySet="Facture_vente">
+            <ScalarProperty Name="TVA" ColumnName="TVA" />
+                <ScalarProperty Name="Remise" ColumnName="Remise" />
+                <ScalarProperty Name="Code_facture" ColumnName="Code_facture" />
+                <ScalarProperty Name="Id_facture" ColumnName="Id_facture" />
+            <ScalarProperty Name="Id_client" ColumnName="Id_client" />
+            <ScalarProperty Name="Date_facture" ColumnName="Date_facture" />
+            <ScalarProperty Name="Mode_reglement" ColumnName="Mode_reglement" />
+            <ScalarProperty Name="Type_facture" ColumnName="Type_facture" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Famille_article"><EntityTypeMapping TypeName="STOCKONModel.Famille_article"><MappingFragment StoreEntitySet="Famille_article">
+            <ScalarProperty Name="Id_famille" ColumnName="Id_famille" />
+            <ScalarProperty Name="Libelle_famille" ColumnName="Libelle_famille" />
+            <ScalarProperty Name="Conditionnement" ColumnName="Conditionnement" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Fournisseur"><EntityTypeMapping TypeName="STOCKONModel.Fournisseur"><MappingFragment StoreEntitySet="Fournisseur">
+            <ScalarProperty Name="Code_fournisseur" ColumnName="Code_fournisseur" />
+                <ScalarProperty Name="Id_fournisseur" ColumnName="Id_fournisseur" />
+            <ScalarProperty Name="Nom_fournisseur" ColumnName="Nom_fournisseur" />
+            <ScalarProperty Name="Prenom_fournisseur" ColumnName="Prenom_fournisseur" />
+            <ScalarProperty Name="Adresse_fournisseur" ColumnName="Adresse_fournisseur" />
+            <ScalarProperty Name="Telephone_fournisseur" ColumnName="Telephone_fournisseur" />
+            <ScalarProperty Name="Mail__fournisseur" ColumnName="Mail__fournisseur" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Liste_produit"><EntityTypeMapping TypeName="STOCKONModel.Liste_produit"><MappingFragment StoreEntitySet="Liste_produit">
+            <ScalarProperty Name="Prix_Total" ColumnName="Prix_Total" />
+                <ScalarProperty Name="Id_article" ColumnName="Id_article" />
+            <ScalarProperty Name="Id_operation" ColumnName="Id_operation" />
+            <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+            <ScalarProperty Name="Prix" ColumnName="Prix" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Liste_produit_achat"><EntityTypeMapping TypeName="STOCKONModel.Liste_produit_achat"><MappingFragment StoreEntitySet="Liste_produit_achat">
+            <ScalarProperty Name="Prix_total" ColumnName="Prix_total" />
+                <ScalarProperty Name="Id_article" ColumnName="Id_article" />
+            <ScalarProperty Name="Id_facture" ColumnName="Id_facture" />
+            <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+            <ScalarProperty Name="Prix" ColumnName="Prix" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Liste_produit_vente"><EntityTypeMapping TypeName="STOCKONModel.Liste_produit_vente"><MappingFragment StoreEntitySet="Liste_produit_vente">
+            <ScalarProperty Name="Prix_Total" ColumnName="Prix_Total" />
+                <ScalarProperty Name="Id_article" ColumnName="Id_article" />
+            <ScalarProperty Name="Id_facture" ColumnName="Id_facture" />
+            <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+            <ScalarProperty Name="Prix" ColumnName="Prix" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Mouvement_stock"><EntityTypeMapping TypeName="STOCKONModel.Mouvement_stock"><MappingFragment StoreEntitySet="Mouvement_stock">
+            <ScalarProperty Name="Code_mouvement" ColumnName="Code_mouvement" />
+                <ScalarProperty Name="ID_mouvement" ColumnName="ID_mouvement" />
+            <ScalarProperty Name="Date_mouvement" ColumnName="Date_mouvement" />
+            <ScalarProperty Name="Type_mouvement" ColumnName="Type_mouvement" />
+            <ScalarProperty Name="Libelle_mouvement" ColumnName="Libelle_mouvement" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Reglement"><EntityTypeMapping TypeName="STOCKONModel.Reglement"><MappingFragment StoreEntitySet="Reglement">
+            <ScalarProperty Name="Id_facture" ColumnName="Id_facture" />
+            <ScalarProperty Name="Id_client" ColumnName="Id_client" />
+            <ScalarProperty Name="Date_regelement" ColumnName="Date_regelement" />
+            <ScalarProperty Name="Montant_regelement" ColumnName="Montant_regelement" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Utilisateur"><EntityTypeMapping TypeName="STOCKONModel.Utilisateur"><MappingFragment StoreEntitySet="Utilisateur">
+            <ScalarProperty Name="PFacture" ColumnName="PFacture" />
+                <ScalarProperty Name="Id_utilisateur" ColumnName="Id_utilisateur" />
+            <ScalarProperty Name="Login" ColumnName="Login" />
+            <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+            <ScalarProperty Name="Client" ColumnName="Client" />
+            <ScalarProperty Name="Fournissaeur" ColumnName="Fournissaeur" />
+            <ScalarProperty Name="Facture" ColumnName="Facture" />
+            <ScalarProperty Name="Article" ColumnName="Article" />
+            <ScalarProperty Name="Mouvement_stock" ColumnName="Mouvement_stock" />
+            <ScalarProperty Name="Etats" ColumnName="Etats" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Preference">
+            <EntityTypeMapping TypeName="STOCKONModel.Preference">
+              <MappingFragment StoreEntitySet="Preference">
+                <ScalarProperty Name="Remise" ColumnName="Remise" />
+                <ScalarProperty Name="CRecherche" ColumnName="CRecherche" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Duree_echeance" ColumnName="Duree_echeance" />
+                <ScalarProperty Name="Taux_tva" ColumnName="Taux_tva" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Num_telephone" ColumnName="Num_telephone" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Activite" ColumnName="Activite" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Log">
+            <EntityTypeMapping TypeName="STOCKONModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="TableOP" ColumnName="TableOP" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Operation" ColumnName="Operation" />
+                <ScalarProperty Name="Utilisateur" ColumnName="Utilisateur" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="StockOnModel">
+        <EntityTypeShape EntityType="STOCKONModel.Article" Width="1.5" PointX="3" PointY="4.375" Height="2.9070849609374996" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Client" Width="1.5" PointX="0.75" PointY="11.625" Height="2.4140429687499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Facture_achat" Width="1.5" PointX="3" PointY="0.75" Height="2.0853483072916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Facture_vente" Width="1.5" PointX="3" PointY="11.625" Height="2.2496956380208353" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Famille_article" Width="1.5" PointX="0.75" PointY="5" Height="1.5923063151041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Fournisseur" Width="1.5" PointX="0.75" PointY="1.625" Height="2.0853483072916665" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Liste_produit" Width="1.5" PointX="5.25" PointY="4.875" Height="1.9210009765624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Liste_produit_achat" Width="1.5" PointX="5.25" PointY="1.875" Height="1.9210009765624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Liste_produit_vente" Width="1.5" PointX="5.25" PointY="7.875" Height="1.9210009765624987" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Mouvement_stock" Width="1.5" PointX="3" PointY="8.875" Height="1.7566536458333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Reglement" Width="1.5" PointX="5.25" PointY="11.875" Height="1.9210009765625031" IsExpanded="true" />
+        <EntityTypeShape EntityType="STOCKONModel.Utilisateur" Width="1.5" PointX="7.75" PointY="4.75" Height="2.4140429687500031" IsExpanded="true" />
+        <AssociationConnector Association="STOCKONModel.FK_Article_Famille_article" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.8939925130208337" />
+          <ConnectorPoint PointX="3" PointY="5.8939925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="STOCKONModel.FK_Liste_produit_achat_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="4.375" />
+          <ConnectorPoint PointX="4.875" PointY="4" />
+          <ConnectorPoint PointX="4.875" PointY="4.6148893229166656" />
+          <ConnectorPoint PointX="5.25" PointY="4.2398893229166656" />
+        </AssociationConnector>
+        <AssociationConnector Association="STOCKONModel.FK_Liste_produit_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="5.6103097384508667" />
+          <ConnectorPoint PointX="5.25" PointY="5.6103097384508667" />
+        </AssociationConnector>
+        <AssociationConnector Association="STOCKONModel.FK_Liste_produit_vente_Article" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="7.8936979166666656" />
+          <ConnectorPoint PointX="4.8160744349011217" PointY="8.2097723515677856" />
+          <ConnectorPoint PointX="4.9339255650988791" PointY="8.3276234817655439" />
+          <ConnectorPoint PointX="5.125" PointY="8.5186979166666656" />
+          <ConnectorPoint PointX="5.125" PointY="7.75" />
+          <ConnectorPoint PointX="5.25" PointY="7.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="STOCKONModel.FK_Facture_vente_Client" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="12.904795735677084" />
+          <ConnectorPoint PointX="3" PointY="12.904795735677084" />
+        </AssociationConnector>
+        <AssociationConnector Association="STOCKONModel.FK_Reglement_Client" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="14.501892903645834" />
+          <ConnectorPoint PointX="6" PointY="14.501892903645834" />
+          <ConnectorPoint PointX="6" PointY="14.047587890625" />
+        </AssociationConnector>
+        <AssociationConnector Association="STOCKONModel.FK_Facture_achat_Fournisseur" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.4660953776041667" />
+          <ConnectorPoint PointX="3" PointY="2.4660953776041667" />
+        </AssociationConnector>
+        <AssociationConnector Association="STOCKONModel.FK_Liste_produit_achat_Facture_achat" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.5910953776041667" />
+          <ConnectorPoint PointX="5.25" PointY="2.5910953776041667" />
+        </AssociationConnector>
+        <AssociationConnector Association="STOCKONModel.FK_Liste_produit_vente_Facture_vente" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="11.626152846153847" />
+          <ConnectorPoint PointX="4.875" PointY="11.251152846153847" />
+          <ConnectorPoint PointX="4.875" PointY="9.0886966614583358" />
+          <ConnectorPoint PointX="5.25" PointY="9.0886966614583358" />
+        </AssociationConnector>
+        <AssociationConnector Association="STOCKONModel.FK_Reglement_Facture_vente" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="12.9612939453125" />
+          <ConnectorPoint PointX="5.25" PointY="12.9612939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="STOCKONModel.FK_Liste_produit_Mouvement_stock" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="8.8761528461538468" />
+          <ConnectorPoint PointX="4.875" PointY="8.5011528461538468" />
+          <ConnectorPoint PointX="4.875" PointY="6.4563515306837669" />
+          <ConnectorPoint PointX="5.25" PointY="6.4563515306837669" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="STOCKONModel.Preference" Width="1.5" PointX="7.375" PointY="0.75" Height="2.2496956380208388" />
+        <EntityTypeShape EntityType="STOCKONModel.Log" Width="1.5" PointX="7.375" PointY="8.75" Height="1.9802864583333388" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

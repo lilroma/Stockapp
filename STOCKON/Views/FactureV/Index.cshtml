@@ -1,0 +1,42 @@
+﻿@model IEnumerable<STOCKON.Models.Facture_vente>
+
+@{
+    ViewBag.Title = "Facture de vente";
+}
+
+
+<h2>Gestion des ventes</h2>
+
+<p>
+    @Html.ActionLink("Nouvelle facture", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Rechercher une opération (Date) : @Html.Telerik().DatePicker().Name("SearchString") &nbsp;
+        <input type="submit" value="Rechercher" /></p>
+}
+
+ @{
+        var grid = new WebGrid(Model,rowsPerPage : 20);
+        @grid.GetHtml(tableStyle:"grid",
+        headerStyle:"head",
+        alternatingRowStyle: "altrow",
+                columns: grid.Columns(
+                             grid.Column("Code_facture", "Référence"),
+                             grid.Column("Client.Nom_Client", "Client"),
+                                      grid.Column("Date_facture", "Date", format: @<text>@item.Date_facture.ToString("dd/MM/yyyy")</text>),
+                                                           grid.Column("Mode_reglement", "Mode de reglèment"),
+                                                           grid.Column("Type_facture", "Type facture"),
+                                                                                               grid.Column("", "", format: (item) => Html.ActionLink("Editer", "AddProduit", new { id = item.ID_facture })),
+                                                                                                                                                                grid.Column("", "", format: (item) => Html.ActionLink("Supprimer", "Delete", new { id = item.ID_facture })),
+                                                                                                                                                                 grid.Column("", "", format: (item) => Html.ActionLink("Ajouter un règlement", "Reglement", new { id = item.ID_facture })),
+                                                                                                                                                                                                        grid.Column("", "", format: (item) => Html.ActionLink("Transformer", "Edit", new { id = item.ID_facture }))
+
+                                                  )
+
+                                      );
+        }
+
+

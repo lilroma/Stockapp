@@ -1,0 +1,51 @@
+﻿@model STOCKON.Models.Article
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Article</legend>
+
+  
+    <div class="display-label">Libellé</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Libelle_article)
+    </div>
+
+    <div class="display-label">Famille</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Famille_article.Libelle_famille)
+    </div>
+
+    <div class="display-label">Quantité en stock</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Qte_article)
+    </div>
+
+    <div class="display-label">Stock critique</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Stock_critique)
+    </div>
+
+    <div class="display-label">Prix grossiste</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Prix_grossiste)
+    </div>
+
+    <div class="display-label">Prix détaillant</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Prix_detaillant)
+    </div>
+
+    <div class="display-label">Conditionnement</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Conditionnement)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Modifier", "Edit", new {  id=Model.Id_article }) |
+    @Html.ActionLink("Retour à la liste des articles", "Index")
+</p>

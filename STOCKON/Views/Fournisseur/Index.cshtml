@@ -1,0 +1,41 @@
+﻿@model IEnumerable<STOCKON.Models.Fournisseur>
+
+@{
+    ViewBag.Title = "Gestion des fournisseurs";
+}
+
+<h2>Gestion des fournisseurs</h2>
+
+<p>
+    @Html.ActionLink("Nouveau fournisseur", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Rechercher un fournisseur (Nom ou prénom) : @Html.TextBox("SearchString") &nbsp;
+        <input type="submit" value="Rechercher" /></p>
+}
+ @{
+        var grid = new WebGrid(Model,rowsPerPage : 20);
+        @grid.GetHtml(tableStyle:"grid",
+        headerStyle:"head",
+        alternatingRowStyle: "altrow",
+                columns: grid.Columns(
+                         grid.Column("Id_fournisseur", "Référence"),
+                    grid.Column("Nom_fournisseur","Nom"),
+                             grid.Column("Prenom_fournisseur", "Prénom"),
+                                       grid.Column("Telephone_fournisseur", "Téléphone"),
+                                                 grid.Column("Adresse_fournisseur", "Adresse"),
+                    grid.Column("Email","Adresse mail", format:@<i>@item.Mail__fournisseur</i>),
+                              grid.Column("", "", format: (item) => Html.ActionLink("Tracer", "Lachat", new { id = item.Id_fournisseur })),
+         grid.Column("", "", format: (item) => Html.ActionLink("Editer", "Edit", new { id = item.Id_fournisseur })),
+                                                                                                         grid.Column("", "", format: (item) => Html.ActionLink("Details", "Details", new { id = item.Id_fournisseur })),
+                                                                                                                                                                         grid.Column("", "", format: (item) => Html.ActionLink("Supprimer", "Delete", new { id = item.Id_fournisseur }))
+                                                                                   
+                    )
+        
+        );
+        }
+
+
